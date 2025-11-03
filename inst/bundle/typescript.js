@@ -1,0 +1,1 @@
+export { transpileModule } from "typescript";
