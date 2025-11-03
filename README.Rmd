@@ -36,27 +36,13 @@ pak::pak("andrjohns/jsutils")
 
 ## Example
 
-### `esprima`: Tokeniser and Parser for JavaScript
-
-Separate `esprima_parse` and `esprima_tokenize` functions are provided to parse or tokenize JavaScript code respectively:
-
-```{r}
-library(jsutils)
-
-js_code <- "function hello() { console.log('Hello, world!'); }"
-
-# Parse JavaScript code
-esprima_parse(js_code)
-
-# Tokenize JavaScript code
-esprima_tokenize(js_code)
-```
-
 ### `sass`: A CSS preprocessor
 
 The `sass` function compiles SCSS or SASS code to CSS:
 
 ```{r}
+library(jsutils)
+
 scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
 
 # Compile SCSS code to CSS
@@ -90,4 +76,18 @@ typescript(ts_code)
 
 # With options
 typescript(ts_code, options = list(compilerOptions = list(target = "ES2015")))
+```
+
+### `esprima`: Tokeniser and Parser for JavaScript
+
+Separate `esprima_parse` and `esprima_tokenize` functions are provided to parse or tokenize JavaScript code respectively:
+
+```{r}
+js_code <- "function hello() { console.log('Hello, world!'); }"
+
+# Parse JavaScript code
+esprima_parse(js_code)
+
+# Tokenize JavaScript code
+esprima_tokenize(js_code)
 ```

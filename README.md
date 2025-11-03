@@ -29,14 +29,86 @@ pak::pak("andrjohns/jsutils")
 
 ## Example
 
+### `sass`: A CSS preprocessor
+
+The `sass` function compiles SCSS or SASS code to CSS:
+
+``` r
+library(jsutils)
+
+scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
+
+# Compile SCSS code to CSS
+sass(scss_code)
+#> $css
+#> [1] "h1 {\n  font-size: 40px;\n}\nh1 code {\n  font-face: Roboto Mono;\n}"
+#> 
+#> $loadedUrls
+#> logical(0)
+
+# With options
+sass(scss_code, options = list(style = "compressed"))
+#> $css
+#> [1] "h1{font-size:40px}h1 code{font-face:Roboto Mono}"
+#> 
+#> $loadedUrls
+#> logical(0)
+```
+
+### `terser`: A minifier/mangler for JavaScript code
+
+The `terser` function minifies JavaScript code:
+
+``` r
+js_code <- "function hello() { console.log('Hello, world!'); }"
+
+# Minify JavaScript code
+terser(js_code)
+#> $code
+#> [1] "function hello(){console.log(\"Hello, world!\")}"
+
+# With options
+terser(js_code, list(mangle=list(toplevel = TRUE)))
+#> $code
+#> [1] "function o(){console.log(\"Hello, world!\")}"
+```
+
+### `typescript`: A superset of JavaScript that compiles to clean JavaScript output
+
+The `typescript` function compiles TypeScript code to JavaScript:
+
+``` r
+ts_code <- "let arrow_func = (msg: string): void => { console.log(msg); };"
+
+# Compile TypeScript code to JavaScript
+typescript(ts_code)
+#> $outputText
+#> [1] "var arrow_func = function (msg) { console.log(msg); };\n"
+#> 
+#> $diagnostics
+#> logical(0)
+#> 
+#> $sourceMapText
+#> NULL
+
+# With options
+typescript(ts_code, options = list(compilerOptions = list(target = "ES2015")))
+#> $outputText
+#> [1] "let arrow_func = (msg) => { console.log(msg); };\n"
+#> 
+#> $diagnostics
+#> logical(0)
+#> 
+#> $sourceMapText
+#> NULL
+```
+
 ### `esprima`: Tokeniser and Parser for JavaScript
 
 Separate `esprima_parse` and `esprima_tokenize` functions are provided
 to parse or tokenize JavaScript code respectively:
 
 ``` r
-library(jsutils)
-
 js_code <- "function hello() { console.log('Hello, world!'); }"
 
 # Parse JavaScript code
@@ -232,76 +304,4 @@ esprima_tokenize(js_code)
 #> 
 #> [[13]]$value
 #> [1] "}"
-```
-
-### `sass`: A CSS preprocessor
-
-The `sass` function compiles SCSS or SASS code to CSS:
-
-``` r
-scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
-
-# Compile SCSS code to CSS
-sass(scss_code)
-#> $css
-#> [1] "h1 {\n  font-size: 40px;\n}\nh1 code {\n  font-face: Roboto Mono;\n}"
-#> 
-#> $loadedUrls
-#> logical(0)
-
-# With options
-sass(scss_code, options = list(style = "compressed"))
-#> $css
-#> [1] "h1{font-size:40px}h1 code{font-face:Roboto Mono}"
-#> 
-#> $loadedUrls
-#> logical(0)
-```
-
-### `terser`: A minifier/mangler for JavaScript code
-
-The `terser` function minifies JavaScript code:
-
-``` r
-js_code <- "function hello() { console.log('Hello, world!'); }"
-
-# Minify JavaScript code
-terser(js_code)
-#> $code
-#> [1] "function hello(){console.log(\"Hello, world!\")}"
-
-# With options
-terser(js_code, list(mangle=list(toplevel = TRUE)))
-#> $code
-#> [1] "function o(){console.log(\"Hello, world!\")}"
-```
-
-### `typescript`: A superset of JavaScript that compiles to clean JavaScript output
-
-The `typescript` function compiles TypeScript code to JavaScript:
-
-``` r
-ts_code <- "let arrow_func = (msg: string): void => { console.log(msg); };"
-
-# Compile TypeScript code to JavaScript
-typescript(ts_code)
-#> $outputText
-#> [1] "var arrow_func = function (msg) { console.log(msg); };\n"
-#> 
-#> $diagnostics
-#> logical(0)
-#> 
-#> $sourceMapText
-#> NULL
-
-# With options
-typescript(ts_code, options = list(compilerOptions = list(target = "ES2015")))
-#> $outputText
-#> [1] "let arrow_func = (msg) => { console.log(msg); };\n"
-#> 
-#> $diagnostics
-#> logical(0)
-#> 
-#> $sourceMapText
-#> NULL
 ```
