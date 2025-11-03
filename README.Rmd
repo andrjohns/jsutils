@@ -57,13 +57,13 @@ esprima_tokenize(js_code)
 The `sass` function compiles SCSS or SASS code to CSS:
 
 ```{r}
-scss_code <- "body { h1 { color: red; } }"
+scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
 
 # Compile SCSS code to CSS
 sass(scss_code)
 
 # With options
-sass(scss_code, options = list(outputStyle = "compressed"))
+sass(scss_code, options = list(style = "compressed"))
 ```
 
 ### `terser`: A minifier/mangler for JavaScript code
@@ -76,7 +76,7 @@ js_code <- "function hello() { console.log('Hello, world!'); }"
 terser(js_code)
 
 # With options
-terser(js_code, options = list(mangle = TRUE))
+terser(js_code, list(mangle=list(toplevel = TRUE)))
 ```
 
 ### `typescript`: A superset of JavaScript that compiles to clean JavaScript output

@@ -239,20 +239,20 @@ esprima_tokenize(js_code)
 The `sass` function compiles SCSS or SASS code to CSS:
 
 ``` r
-scss_code <- "body { h1 { color: red; } }"
+scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
 
 # Compile SCSS code to CSS
 sass(scss_code)
 #> $css
-#> [1] "body h1 {\n  color: red;\n}"
+#> [1] "h1 {\n  font-size: 40px;\n}\nh1 code {\n  font-face: Roboto Mono;\n}"
 #> 
 #> $loadedUrls
 #> logical(0)
 
 # With options
-sass(scss_code, options = list(outputStyle = "compressed"))
+sass(scss_code, options = list(style = "compressed"))
 #> $css
-#> [1] "body h1 {\n  color: red;\n}"
+#> [1] "h1{font-size:40px}h1 code{font-face:Roboto Mono}"
 #> 
 #> $loadedUrls
 #> logical(0)
@@ -271,9 +271,9 @@ terser(js_code)
 #> [1] "function hello(){console.log(\"Hello, world!\")}"
 
 # With options
-terser(js_code, options = list(mangle = TRUE))
+terser(js_code, list(mangle=list(toplevel = TRUE)))
 #> $code
-#> [1] "function hello(){console.log(\"Hello, world!\")}"
+#> [1] "function o(){console.log(\"Hello, world!\")}"
 ```
 
 ### `typescript`: A superset of JavaScript that compiles to clean JavaScript output
