@@ -17,7 +17,7 @@ A list containing the minified code and any warnings or errors.
 }
 \description{
 Uses the Terser JavaScript library to minify JavaScript code. Note that the
-first time this function is called, it will load the TypeScript library into the JavaScript context,
+first time this function is called, it will load the terser library into the JavaScript context,
 which may take a few seconds. Subsequent calls will be faster.
 }
 \examples{

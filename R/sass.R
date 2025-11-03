@@ -2,7 +2,7 @@
 #'
 #' @description This function uses the sass.js library to compile SASS/SCSS code into CSS.
 #' It leverages the QuickJSR package to run JavaScript code within R. Note that the
-#' first time this function is called, it will load the TypeScript library into the JavaScript context,
+#' first time this function is called, it will load the sass.js library into the JavaScript context,
 #' which may take a few seconds. Subsequent calls will be faster.
 #'
 #' @param input A character string containing the SASS/SCSS code to be compiled.

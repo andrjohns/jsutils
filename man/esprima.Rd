@@ -23,7 +23,7 @@ For \code{esprima_tokenize}, a list of tokens extracted from the input code.
 }
 \description{
 Use the Esprima library to parse or tokenize JavaScript code. Note that the
-first time this function is called, it will load the TypeScript library into the JavaScript context,
+first time this function is called, it will load the esprima library into the JavaScript context,
 which may take a few seconds. Subsequent calls will be faster.
 }
 \examples{

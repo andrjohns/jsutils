@@ -1,7 +1,7 @@
 #' @title Minify JavaScript code using Terser
 #'
 #' @description Uses the Terser JavaScript library to minify JavaScript code. Note that the
-#' first time this function is called, it will load the TypeScript library into the JavaScript context,
+#' first time this function is called, it will load the terser library into the JavaScript context,
 #' which may take a few seconds. Subsequent calls will be faster.
 #'
 #' @param input A character string containing the JavaScript code to be minified.
