@@ -14,7 +14,7 @@
 #' @export
 typescript_transpile <- function(input, transpileOptions = list()) {
   if (!isTRUE(ctx_typescript$get("typescript_loaded"))) {
-    ctx_typescript$source(system.file("js", "typescript.js", package = "jsutils", mustWork = TRUE))
+    ctx_typescript$source(system.file("js", paste0("typescript.", .TYPESCRIPT_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
     ctx_typescript$assign("typescript_loaded", TRUE)
   }
   res <- ctx_typescript$call("ts.transpileModule", input, transpileOptions)

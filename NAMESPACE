@@ -2,6 +2,7 @@
 
 export(esprima_parse)
 export(esprima_tokenize)
+export(js_versions)
 export(sass)
 export(terser)
 export(typescript_transpile)
