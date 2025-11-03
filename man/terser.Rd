@@ -4,10 +4,10 @@
 \alias{terser}
 \title{Minify JavaScript code using Terser}
 \usage{
-terser(code, options = list())
+terser(input, options = list())
 }
 \arguments{
-\item{code}{A character string containing the JavaScript code to be minified.}
+\item{input}{A character string containing the JavaScript code to be minified.}
 
 \item{options}{A list of options to pass to Terser for minification.
 See the \href{https://terser.org/docs/api-reference/#minify-options}{Terser documentation} for available options.}
@@ -16,8 +16,9 @@ See the \href{https://terser.org/docs/api-reference/#minify-options}{Terser docu
 A list containing the minified code and any warnings or errors.
 }
 \description{
-This function uses the Terser JavaScript library to minify JavaScript code.
-It leverages the QuickJSR package to run JavaScript code within R.
+Uses the Terser JavaScript library to minify JavaScript code. Note that the
+first time this function is called, it will load the TypeScript library into the JavaScript context,
+which may take a few seconds. Subsequent calls will be faster.
 }
 \examples{
 js_code <- "function add(a, b) { return a + b; }"

@@ -6,14 +6,14 @@
 \alias{esprima_tokenize}
 \title{Parse or Tokenize JavaScript code using Esprima}
 \usage{
-esprima_parse(input, config = list(), type = "script")
+esprima_parse(input, options = list(), type = "script")
 
-esprima_tokenize(input, config = list())
+esprima_tokenize(input, options = list())
 }
 \arguments{
 \item{input}{A character string containing the JavaScript code to be parsed or tokenized.}
 
-\item{config}{A list of configuration options to pass to the Esprima parser or tokenizer.}
+\item{options}{A list of configuration options to pass to the Esprima parser or tokenizer.}
 
 \item{type}{A character string specifying the type of code to parse: "script" (default) or "module".}
 }
@@ -22,7 +22,9 @@ For \code{esprima_parse}, a list representing the Abstract Syntax Tree (AST) of 
 For \code{esprima_tokenize}, a list of tokens extracted from the input code.
 }
 \description{
-Use the Esprima library to parse or tokenize JavaScript code.
+Use the Esprima library to parse or tokenize JavaScript code. Note that the
+first time this function is called, it will load the TypeScript library into the JavaScript context,
+which may take a few seconds. Subsequent calls will be faster.
 }
 \examples{
 js_code <- 'const answer = 42;'
