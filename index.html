@@ -281,20 +281,20 @@
 </h3>
 <p>The <code>sass</code> function compiles SCSS or SASS code to CSS:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scss_code</span> <span class="op">&lt;-</span> <span class="st">"body { h1 { color: red; } }"</span></span>
+<code class="sourceCode R"><span><span class="va">scss_code</span> <span class="op">&lt;-</span> <span class="st">"h1 { font-size: 40px; code { font-face: Roboto Mono; } }"</span></span>
 <span></span>
 <span><span class="co"># Compile SCSS code to CSS</span></span>
 <span><span class="fu"><a href="reference/sass.html">sass</a></span><span class="op">(</span><span class="va">scss_code</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $css</span></span>
-<span><span class="co">#&gt; [1] "body h1 {\n  color: red;\n}"</span></span>
+<span><span class="co">#&gt; [1] "h1 {\n  font-size: 40px;\n}\nh1 code {\n  font-face: Roboto Mono;\n}"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $loadedUrls</span></span>
 <span><span class="co">#&gt; logical(0)</span></span>
 <span></span>
 <span><span class="co"># With options</span></span>
-<span><span class="fu"><a href="reference/sass.html">sass</a></span><span class="op">(</span><span class="va">scss_code</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>outputStyle <span class="op">=</span> <span class="st">"compressed"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/sass.html">sass</a></span><span class="op">(</span><span class="va">scss_code</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"compressed"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $css</span></span>
-<span><span class="co">#&gt; [1] "body h1 {\n  color: red;\n}"</span></span>
+<span><span class="co">#&gt; [1] "h1{font-size:40px}h1 code{font-face:Roboto Mono}"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $loadedUrls</span></span>
 <span><span class="co">#&gt; logical(0)</span></span></code></pre></div>
@@ -313,9 +313,9 @@
 <span><span class="co">#&gt; [1] "function hello(){console.log(\"Hello, world!\")}"</span></span>
 <span></span>
 <span><span class="co"># With options</span></span>
-<span><span class="fu"><a href="reference/terser.html">terser</a></span><span class="op">(</span><span class="va">js_code</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/terser.html">terser</a></span><span class="op">(</span><span class="va">js_code</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mangle<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toplevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $code</span></span>
-<span><span class="co">#&gt; [1] "function hello(){console.log(\"Hello, world!\")}"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "function o(){console.log(\"Hello, world!\")}"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="typescript-a-superset-of-javascript-that-compiles-to-clean-javascript-output">
