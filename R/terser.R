@@ -5,7 +5,7 @@
 #'
 #' @param code A character string containing the JavaScript code to be minified.
 #' @param options A list of options to pass to Terser for minification.
-#' See the [Terser documentation](https://terser.org/docs/api-reference#minify-options) for available options.
+#' See the [Terser documentation](https://terser.org/docs/api-reference/#minify-options) for available options.
 #'
 #' @return A list containing the minified code and any warnings or errors.
 #' @examples

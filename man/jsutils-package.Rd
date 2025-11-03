@@ -4,9 +4,9 @@
 \name{jsutils-package}
 \alias{jsutils}
 \alias{jsutils-package}
-\title{jsutils: What the Package Does (One Line, Title Case)}
+\title{jsutils: 'JavaScript' Utilities for 'R'}
 \description{
-What the package does (one paragraph).
+A collection of popular/useful JavaScript utilities, including the terser minifier, sass compiler, typescript transpiler, and more.
 }
 \author{
 \strong{Maintainer}: Andrew R. Johnson \email{andrew.johnson@arjohnsonau.com} (\href{https://orcid.org/0000-0001-7000-8065}{ORCID})
