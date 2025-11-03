@@ -14,7 +14,7 @@
 #'
 #' @export
 terser <- function(code, options = list()) {
-  if (!ctx_terser$get("terser_loaded")) {
+  if (!isTRUE(ctx_terser$get("terser_loaded"))) {
     ctx_terser$source(system.file("js", "terser.js", package = "jsutils", mustWork = TRUE))
     ctx_terser$assign("terser_loaded", TRUE)
   }

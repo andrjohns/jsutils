@@ -13,7 +13,7 @@
 #'
 #' @export
 typescript_transpile <- function(input, transpileOptions = list()) {
-  if (!ctx_typescript$get("typescript_loaded")) {
+  if (!isTRUE(ctx_typescript$get("typescript_loaded"))) {
     ctx_typescript$source(system.file("js", "typescript.js", package = "jsutils", mustWork = TRUE))
     ctx_typescript$assign("typescript_loaded", TRUE)
   }

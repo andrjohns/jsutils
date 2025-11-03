@@ -13,7 +13,7 @@
 #'
 #' @export
 sass <- function(input, options = list()) {
-  if (!ctx_sass$get("sass_loaded")) {
+  if (!isTRUE(ctx_sass$get("sass_loaded"))) {
     # https://github.com/dart-lang/sdk/issues/27979
     ctx_sass$source(code=paste0("globalThis.location = { href: '", getwd(), "' };"))
     ctx_sass$source(system.file("js", "sass.js", package = "jsutils", mustWork = TRUE))
