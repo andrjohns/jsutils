@@ -10,7 +10,7 @@ var esprima = (function (exports) {
 	function requireEsprima () {
 		if (hasRequiredEsprima) return esprima$1.exports;
 		hasRequiredEsprima = 1;
-		(function (module, exports) {
+		(function (module, exports$1) {
 			(function webpackUniversalModuleDefinition(root, factory) {
 			/* istanbul ignore next */
 				module.exports = factory();
@@ -60,7 +60,7 @@ var esprima = (function (exports) {
 			/************************************************************************/
 			/******/ ([
 			/* 0 */
-			/***/ function(module, exports, __webpack_require__) {
+			/***/ function(module, exports$1, __webpack_require__) {
 				/*
 				  Copyright JS Foundation and other contributors, https://js.foundation/
 
@@ -84,7 +84,7 @@ var esprima = (function (exports) {
 				  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 				  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				*/
-				Object.defineProperty(exports, "__esModule", { value: true });
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var comment_handler_1 = __webpack_require__(1);
 				var jsx_parser_1 = __webpack_require__(3);
 				var parser_1 = __webpack_require__(8);
@@ -135,19 +135,19 @@ var esprima = (function (exports) {
 				    }
 				    return ast;
 				}
-				exports.parse = parse;
+				exports$1.parse = parse;
 				function parseModule(code, options, delegate) {
 				    var parsingOptions = options || {};
 				    parsingOptions.sourceType = 'module';
 				    return parse(code, parsingOptions, delegate);
 				}
-				exports.parseModule = parseModule;
+				exports$1.parseModule = parseModule;
 				function parseScript(code, options, delegate) {
 				    var parsingOptions = options || {};
 				    parsingOptions.sourceType = 'script';
 				    return parse(code, parsingOptions, delegate);
 				}
-				exports.parseScript = parseScript;
+				exports$1.parseScript = parseScript;
 				function tokenize(code, options, delegate) {
 				    var tokenizer = new tokenizer_1.Tokenizer(code, options);
 				    var tokens;
@@ -172,17 +172,17 @@ var esprima = (function (exports) {
 				    }
 				    return tokens;
 				}
-				exports.tokenize = tokenize;
+				exports$1.tokenize = tokenize;
 				var syntax_1 = __webpack_require__(2);
-				exports.Syntax = syntax_1.Syntax;
+				exports$1.Syntax = syntax_1.Syntax;
 				// Sync with *.json manifests.
-				exports.version = '4.0.1';
+				exports$1.version = '4.0.1';
 
 
 			/***/ },
 			/* 1 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var syntax_1 = __webpack_require__(2);
 				var CommentHandler = (function () {
 				    function CommentHandler() {
@@ -329,14 +329,14 @@ var esprima = (function (exports) {
 				    };
 				    return CommentHandler;
 				}());
-				exports.CommentHandler = CommentHandler;
+				exports$1.CommentHandler = CommentHandler;
 
 
 			/***/ },
 			/* 2 */
-			/***/ function(module, exports) {
-				Object.defineProperty(exports, "__esModule", { value: true });
-				exports.Syntax = {
+			/***/ function(module, exports$1) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
+				exports$1.Syntax = {
 				    AssignmentExpression: 'AssignmentExpression',
 				    AssignmentPattern: 'AssignmentPattern',
 				    ArrayExpression: 'ArrayExpression',
@@ -408,7 +408,7 @@ var esprima = (function (exports) {
 
 			/***/ },
 			/* 3 */
-			/***/ function(module, exports, __webpack_require__) {
+			/***/ function(module, exports$1, __webpack_require__) {
 			/* istanbul ignore next */
 				var __extends = (this && this.__extends) || (function () {
 				    var extendStatics = Object.setPrototypeOf ||
@@ -420,7 +420,7 @@ var esprima = (function (exports) {
 				        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 				    };
 				})();
-				Object.defineProperty(exports, "__esModule", { value: true });
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var character_1 = __webpack_require__(4);
 				var JSXNode = __webpack_require__(5);
 				var jsx_syntax_1 = __webpack_require__(6);
@@ -942,13 +942,13 @@ var esprima = (function (exports) {
 				    };
 				    return JSXParser;
 				}(parser_1.Parser));
-				exports.JSXParser = JSXParser;
+				exports$1.JSXParser = JSXParser;
 
 
 			/***/ },
 			/* 4 */
-			/***/ function(module, exports) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				// See also tools/generate-unicode-regex.js.
 				var Regex = {
 				    // Unicode v8.0.0 NonAsciiIdentifierStart:
@@ -956,7 +956,7 @@ var esprima = (function (exports) {
 				    // Unicode v8.0.0 NonAsciiIdentifierPart:
 				    NonAsciiIdentifierPart: /[\xAA\xB5\xB7\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0300-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u0483-\u0487\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u05D0-\u05EA\u05F0-\u05F2\u0610-\u061A\u0620-\u0669\u066E-\u06D3\u06D5-\u06DC\u06DF-\u06E8\u06EA-\u06FC\u06FF\u0710-\u074A\u074D-\u07B1\u07C0-\u07F5\u07FA\u0800-\u082D\u0840-\u085B\u08A0-\u08B4\u08E3-\u0963\u0966-\u096F\u0971-\u0983\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BC-\u09C4\u09C7\u09C8\u09CB-\u09CE\u09D7\u09DC\u09DD\u09DF-\u09E3\u09E6-\u09F1\u0A01-\u0A03\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A75\u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0-\u0AE3\u0AE6-\u0AEF\u0AF9\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3C-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B5C\u0B5D\u0B5F-\u0B63\u0B66-\u0B6F\u0B71\u0B82\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BEF\u0C00-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C58-\u0C5A\u0C60-\u0C63\u0C66-\u0C6F\u0C81-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1\u0CF2\u0D01-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D-\u0D44\u0D46-\u0D48\u0D4A-\u0D4E\u0D57\u0D5F-\u0D63\u0D66-\u0D6F\u0D7A-\u0D7F\u0D82\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2\u0DF3\u0E01-\u0E3A\u0E40-\u0E4E\u0E50-\u0E59\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB9\u0EBB-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECD\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F18\u0F19\u0F20-\u0F29\u0F35\u0F37\u0F39\u0F3E-\u0F47\u0F49-\u0F6C\u0F71-\u0F84\u0F86-\u0F97\u0F99-\u0FBC\u0FC6\u1000-\u1049\u1050-\u109D\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u135D-\u135F\u1369-\u1371\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EE-\u16F8\u1700-\u170C\u170E-\u1714\u1720-\u1734\u1740-\u1753\u1760-\u176C\u176E-\u1770\u1772\u1773\u1780-\u17D3\u17D7\u17DC\u17DD\u17E0-\u17E9\u180B-\u180D\u1810-\u1819\u1820-\u1877\u1880-\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1946-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u1A00-\u1A1B\u1A20-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA7\u1AB0-\u1ABD\u1B00-\u1B4B\u1B50-\u1B59\u1B6B-\u1B73\u1B80-\u1BF3\u1C00-\u1C37\u1C40-\u1C49\u1C4D-\u1C7D\u1CD0-\u1CD2\u1CD4-\u1CF6\u1CF8\u1CF9\u1D00-\u1DF5\u1DFC-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200C\u200D\u203F\u2040\u2054\u2071\u207F\u2090-\u209C\u20D0-\u20DC\u20E1\u20E5-\u20F0\u2102\u2107\u210A-\u2113\u2115\u2118-\u211D\u2124\u2126\u2128\u212A-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2160-\u2188\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2DE0-\u2DFF\u3005-\u3007\u3021-\u302F\u3031-\u3035\u3038-\u303C\u3041-\u3096\u3099-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FD5\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA62B\uA640-\uA66F\uA674-\uA67D\uA67F-\uA6F1\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AD\uA7B0-\uA7B7\uA7F7-\uA827\uA840-\uA873\uA880-\uA8C4\uA8D0-\uA8D9\uA8E0-\uA8F7\uA8FB\uA8FD\uA900-\uA92D\uA930-\uA953\uA960-\uA97C\uA980-\uA9C0\uA9CF-\uA9D9\uA9E0-\uA9FE\uAA00-\uAA36\uAA40-\uAA4D\uAA50-\uAA59\uAA60-\uAA76\uAA7A-\uAAC2\uAADB-\uAADD\uAAE0-\uAAEF\uAAF2-\uAAF6\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABEA\uABEC\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE00-\uFE0F\uFE20-\uFE2F\uFE33\uFE34\uFE4D-\uFE4F\uFE70-\uFE74\uFE76-\uFEFC\uFF10-\uFF19\uFF21-\uFF3A\uFF3F\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]|\uD800[\uDC00-\uDC0B\uDC0D-\uDC26\uDC28-\uDC3A\uDC3C\uDC3D\uDC3F-\uDC4D\uDC50-\uDC5D\uDC80-\uDCFA\uDD40-\uDD74\uDDFD\uDE80-\uDE9C\uDEA0-\uDED0\uDEE0\uDF00-\uDF1F\uDF30-\uDF4A\uDF50-\uDF7A\uDF80-\uDF9D\uDFA0-\uDFC3\uDFC8-\uDFCF\uDFD1-\uDFD5]|\uD801[\uDC00-\uDC9D\uDCA0-\uDCA9\uDD00-\uDD27\uDD30-\uDD63\uDE00-\uDF36\uDF40-\uDF55\uDF60-\uDF67]|\uD802[\uDC00-\uDC05\uDC08\uDC0A-\uDC35\uDC37\uDC38\uDC3C\uDC3F-\uDC55\uDC60-\uDC76\uDC80-\uDC9E\uDCE0-\uDCF2\uDCF4\uDCF5\uDD00-\uDD15\uDD20-\uDD39\uDD80-\uDDB7\uDDBE\uDDBF\uDE00-\uDE03\uDE05\uDE06\uDE0C-\uDE13\uDE15-\uDE17\uDE19-\uDE33\uDE38-\uDE3A\uDE3F\uDE60-\uDE7C\uDE80-\uDE9C\uDEC0-\uDEC7\uDEC9-\uDEE6\uDF00-\uDF35\uDF40-\uDF55\uDF60-\uDF72\uDF80-\uDF91]|\uD803[\uDC00-\uDC48\uDC80-\uDCB2\uDCC0-\uDCF2]|\uD804[\uDC00-\uDC46\uDC66-\uDC6F\uDC7F-\uDCBA\uDCD0-\uDCE8\uDCF0-\uDCF9\uDD00-\uDD34\uDD36-\uDD3F\uDD50-\uDD73\uDD76\uDD80-\uDDC4\uDDCA-\uDDCC\uDDD0-\uDDDA\uDDDC\uDE00-\uDE11\uDE13-\uDE37\uDE80-\uDE86\uDE88\uDE8A-\uDE8D\uDE8F-\uDE9D\uDE9F-\uDEA8\uDEB0-\uDEEA\uDEF0-\uDEF9\uDF00-\uDF03\uDF05-\uDF0C\uDF0F\uDF10\uDF13-\uDF28\uDF2A-\uDF30\uDF32\uDF33\uDF35-\uDF39\uDF3C-\uDF44\uDF47\uDF48\uDF4B-\uDF4D\uDF50\uDF57\uDF5D-\uDF63\uDF66-\uDF6C\uDF70-\uDF74]|\uD805[\uDC80-\uDCC5\uDCC7\uDCD0-\uDCD9\uDD80-\uDDB5\uDDB8-\uDDC0\uDDD8-\uDDDD\uDE00-\uDE40\uDE44\uDE50-\uDE59\uDE80-\uDEB7\uDEC0-\uDEC9\uDF00-\uDF19\uDF1D-\uDF2B\uDF30-\uDF39]|\uD806[\uDCA0-\uDCE9\uDCFF\uDEC0-\uDEF8]|\uD808[\uDC00-\uDF99]|\uD809[\uDC00-\uDC6E\uDC80-\uDD43]|[\uD80C\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872][\uDC00-\uDFFF]|\uD80D[\uDC00-\uDC2E]|\uD811[\uDC00-\uDE46]|\uD81A[\uDC00-\uDE38\uDE40-\uDE5E\uDE60-\uDE69\uDED0-\uDEED\uDEF0-\uDEF4\uDF00-\uDF36\uDF40-\uDF43\uDF50-\uDF59\uDF63-\uDF77\uDF7D-\uDF8F]|\uD81B[\uDF00-\uDF44\uDF50-\uDF7E\uDF8F-\uDF9F]|\uD82C[\uDC00\uDC01]|\uD82F[\uDC00-\uDC6A\uDC70-\uDC7C\uDC80-\uDC88\uDC90-\uDC99\uDC9D\uDC9E]|\uD834[\uDD65-\uDD69\uDD6D-\uDD72\uDD7B-\uDD82\uDD85-\uDD8B\uDDAA-\uDDAD\uDE42-\uDE44]|\uD835[\uDC00-\uDC54\uDC56-\uDC9C\uDC9E\uDC9F\uDCA2\uDCA5\uDCA6\uDCA9-\uDCAC\uDCAE-\uDCB9\uDCBB\uDCBD-\uDCC3\uDCC5-\uDD05\uDD07-\uDD0A\uDD0D-\uDD14\uDD16-\uDD1C\uDD1E-\uDD39\uDD3B-\uDD3E\uDD40-\uDD44\uDD46\uDD4A-\uDD50\uDD52-\uDEA5\uDEA8-\uDEC0\uDEC2-\uDEDA\uDEDC-\uDEFA\uDEFC-\uDF14\uDF16-\uDF34\uDF36-\uDF4E\uDF50-\uDF6E\uDF70-\uDF88\uDF8A-\uDFA8\uDFAA-\uDFC2\uDFC4-\uDFCB\uDFCE-\uDFFF]|\uD836[\uDE00-\uDE36\uDE3B-\uDE6C\uDE75\uDE84\uDE9B-\uDE9F\uDEA1-\uDEAF]|\uD83A[\uDC00-\uDCC4\uDCD0-\uDCD6]|\uD83B[\uDE00-\uDE03\uDE05-\uDE1F\uDE21\uDE22\uDE24\uDE27\uDE29-\uDE32\uDE34-\uDE37\uDE39\uDE3B\uDE42\uDE47\uDE49\uDE4B\uDE4D-\uDE4F\uDE51\uDE52\uDE54\uDE57\uDE59\uDE5B\uDE5D\uDE5F\uDE61\uDE62\uDE64\uDE67-\uDE6A\uDE6C-\uDE72\uDE74-\uDE77\uDE79-\uDE7C\uDE7E\uDE80-\uDE89\uDE8B-\uDE9B\uDEA1-\uDEA3\uDEA5-\uDEA9\uDEAB-\uDEBB]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1]|\uD87E[\uDC00-\uDE1D]|\uDB40[\uDD00-\uDDEF]/
 				};
-				exports.Character = {
+				exports$1.Character = {
 				    /* tslint:disable:no-bitwise */
 				    fromCodePoint: function (cp) {
 				        return (cp < 0x10000) ? String.fromCharCode(cp) :
@@ -978,7 +978,7 @@ var esprima = (function (exports) {
 				            (cp >= 0x41 && cp <= 0x5A) ||
 				            (cp >= 0x61 && cp <= 0x7A) ||
 				            (cp === 0x5C) ||
-				            ((cp >= 0x80) && Regex.NonAsciiIdentifierStart.test(exports.Character.fromCodePoint(cp)));
+				            ((cp >= 0x80) && Regex.NonAsciiIdentifierStart.test(exports$1.Character.fromCodePoint(cp)));
 				    },
 				    isIdentifierPart: function (cp) {
 				        return (cp === 0x24) || (cp === 0x5F) ||
@@ -986,7 +986,7 @@ var esprima = (function (exports) {
 				            (cp >= 0x61 && cp <= 0x7A) ||
 				            (cp >= 0x30 && cp <= 0x39) ||
 				            (cp === 0x5C) ||
-				            ((cp >= 0x80) && Regex.NonAsciiIdentifierPart.test(exports.Character.fromCodePoint(cp)));
+				            ((cp >= 0x80) && Regex.NonAsciiIdentifierPart.test(exports$1.Character.fromCodePoint(cp)));
 				    },
 				    // https://tc39.github.io/ecma262/#sec-literals-numeric-literals
 				    isDecimalDigit: function (cp) {
@@ -1005,8 +1005,8 @@ var esprima = (function (exports) {
 
 			/***/ },
 			/* 5 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var jsx_syntax_1 = __webpack_require__(6);
 				/* tslint:disable:max-classes-per-file */
 				var JSXClosingElement = (function () {
@@ -1016,7 +1016,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXClosingElement;
 				}());
-				exports.JSXClosingElement = JSXClosingElement;
+				exports$1.JSXClosingElement = JSXClosingElement;
 				var JSXElement = (function () {
 				    function JSXElement(openingElement, children, closingElement) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXElement;
@@ -1026,14 +1026,14 @@ var esprima = (function (exports) {
 				    }
 				    return JSXElement;
 				}());
-				exports.JSXElement = JSXElement;
+				exports$1.JSXElement = JSXElement;
 				var JSXEmptyExpression = (function () {
 				    function JSXEmptyExpression() {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXEmptyExpression;
 				    }
 				    return JSXEmptyExpression;
 				}());
-				exports.JSXEmptyExpression = JSXEmptyExpression;
+				exports$1.JSXEmptyExpression = JSXEmptyExpression;
 				var JSXExpressionContainer = (function () {
 				    function JSXExpressionContainer(expression) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXExpressionContainer;
@@ -1041,7 +1041,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXExpressionContainer;
 				}());
-				exports.JSXExpressionContainer = JSXExpressionContainer;
+				exports$1.JSXExpressionContainer = JSXExpressionContainer;
 				var JSXIdentifier = (function () {
 				    function JSXIdentifier(name) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXIdentifier;
@@ -1049,7 +1049,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXIdentifier;
 				}());
-				exports.JSXIdentifier = JSXIdentifier;
+				exports$1.JSXIdentifier = JSXIdentifier;
 				var JSXMemberExpression = (function () {
 				    function JSXMemberExpression(object, property) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXMemberExpression;
@@ -1058,7 +1058,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXMemberExpression;
 				}());
-				exports.JSXMemberExpression = JSXMemberExpression;
+				exports$1.JSXMemberExpression = JSXMemberExpression;
 				var JSXAttribute = (function () {
 				    function JSXAttribute(name, value) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXAttribute;
@@ -1067,7 +1067,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXAttribute;
 				}());
-				exports.JSXAttribute = JSXAttribute;
+				exports$1.JSXAttribute = JSXAttribute;
 				var JSXNamespacedName = (function () {
 				    function JSXNamespacedName(namespace, name) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXNamespacedName;
@@ -1076,7 +1076,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXNamespacedName;
 				}());
-				exports.JSXNamespacedName = JSXNamespacedName;
+				exports$1.JSXNamespacedName = JSXNamespacedName;
 				var JSXOpeningElement = (function () {
 				    function JSXOpeningElement(name, selfClosing, attributes) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXOpeningElement;
@@ -1086,7 +1086,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXOpeningElement;
 				}());
-				exports.JSXOpeningElement = JSXOpeningElement;
+				exports$1.JSXOpeningElement = JSXOpeningElement;
 				var JSXSpreadAttribute = (function () {
 				    function JSXSpreadAttribute(argument) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXSpreadAttribute;
@@ -1094,7 +1094,7 @@ var esprima = (function (exports) {
 				    }
 				    return JSXSpreadAttribute;
 				}());
-				exports.JSXSpreadAttribute = JSXSpreadAttribute;
+				exports$1.JSXSpreadAttribute = JSXSpreadAttribute;
 				var JSXText = (function () {
 				    function JSXText(value, raw) {
 				        this.type = jsx_syntax_1.JSXSyntax.JSXText;
@@ -1103,14 +1103,14 @@ var esprima = (function (exports) {
 				    }
 				    return JSXText;
 				}());
-				exports.JSXText = JSXText;
+				exports$1.JSXText = JSXText;
 
 
 			/***/ },
 			/* 6 */
-			/***/ function(module, exports) {
-				Object.defineProperty(exports, "__esModule", { value: true });
-				exports.JSXSyntax = {
+			/***/ function(module, exports$1) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
+				exports$1.JSXSyntax = {
 				    JSXAttribute: 'JSXAttribute',
 				    JSXClosingElement: 'JSXClosingElement',
 				    JSXElement: 'JSXElement',
@@ -1127,8 +1127,8 @@ var esprima = (function (exports) {
 
 			/***/ },
 			/* 7 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var syntax_1 = __webpack_require__(2);
 				/* tslint:disable:max-classes-per-file */
 				var ArrayExpression = (function () {
@@ -1138,7 +1138,7 @@ var esprima = (function (exports) {
 				    }
 				    return ArrayExpression;
 				}());
-				exports.ArrayExpression = ArrayExpression;
+				exports$1.ArrayExpression = ArrayExpression;
 				var ArrayPattern = (function () {
 				    function ArrayPattern(elements) {
 				        this.type = syntax_1.Syntax.ArrayPattern;
@@ -1146,7 +1146,7 @@ var esprima = (function (exports) {
 				    }
 				    return ArrayPattern;
 				}());
-				exports.ArrayPattern = ArrayPattern;
+				exports$1.ArrayPattern = ArrayPattern;
 				var ArrowFunctionExpression = (function () {
 				    function ArrowFunctionExpression(params, body, expression) {
 				        this.type = syntax_1.Syntax.ArrowFunctionExpression;
@@ -1159,7 +1159,7 @@ var esprima = (function (exports) {
 				    }
 				    return ArrowFunctionExpression;
 				}());
-				exports.ArrowFunctionExpression = ArrowFunctionExpression;
+				exports$1.ArrowFunctionExpression = ArrowFunctionExpression;
 				var AssignmentExpression = (function () {
 				    function AssignmentExpression(operator, left, right) {
 				        this.type = syntax_1.Syntax.AssignmentExpression;
@@ -1169,7 +1169,7 @@ var esprima = (function (exports) {
 				    }
 				    return AssignmentExpression;
 				}());
-				exports.AssignmentExpression = AssignmentExpression;
+				exports$1.AssignmentExpression = AssignmentExpression;
 				var AssignmentPattern = (function () {
 				    function AssignmentPattern(left, right) {
 				        this.type = syntax_1.Syntax.AssignmentPattern;
@@ -1178,7 +1178,7 @@ var esprima = (function (exports) {
 				    }
 				    return AssignmentPattern;
 				}());
-				exports.AssignmentPattern = AssignmentPattern;
+				exports$1.AssignmentPattern = AssignmentPattern;
 				var AsyncArrowFunctionExpression = (function () {
 				    function AsyncArrowFunctionExpression(params, body, expression) {
 				        this.type = syntax_1.Syntax.ArrowFunctionExpression;
@@ -1191,7 +1191,7 @@ var esprima = (function (exports) {
 				    }
 				    return AsyncArrowFunctionExpression;
 				}());
-				exports.AsyncArrowFunctionExpression = AsyncArrowFunctionExpression;
+				exports$1.AsyncArrowFunctionExpression = AsyncArrowFunctionExpression;
 				var AsyncFunctionDeclaration = (function () {
 				    function AsyncFunctionDeclaration(id, params, body) {
 				        this.type = syntax_1.Syntax.FunctionDeclaration;
@@ -1204,7 +1204,7 @@ var esprima = (function (exports) {
 				    }
 				    return AsyncFunctionDeclaration;
 				}());
-				exports.AsyncFunctionDeclaration = AsyncFunctionDeclaration;
+				exports$1.AsyncFunctionDeclaration = AsyncFunctionDeclaration;
 				var AsyncFunctionExpression = (function () {
 				    function AsyncFunctionExpression(id, params, body) {
 				        this.type = syntax_1.Syntax.FunctionExpression;
@@ -1217,7 +1217,7 @@ var esprima = (function (exports) {
 				    }
 				    return AsyncFunctionExpression;
 				}());
-				exports.AsyncFunctionExpression = AsyncFunctionExpression;
+				exports$1.AsyncFunctionExpression = AsyncFunctionExpression;
 				var AwaitExpression = (function () {
 				    function AwaitExpression(argument) {
 				        this.type = syntax_1.Syntax.AwaitExpression;
@@ -1225,7 +1225,7 @@ var esprima = (function (exports) {
 				    }
 				    return AwaitExpression;
 				}());
-				exports.AwaitExpression = AwaitExpression;
+				exports$1.AwaitExpression = AwaitExpression;
 				var BinaryExpression = (function () {
 				    function BinaryExpression(operator, left, right) {
 				        var logical = (operator === '||' || operator === '&&');
@@ -1236,7 +1236,7 @@ var esprima = (function (exports) {
 				    }
 				    return BinaryExpression;
 				}());
-				exports.BinaryExpression = BinaryExpression;
+				exports$1.BinaryExpression = BinaryExpression;
 				var BlockStatement = (function () {
 				    function BlockStatement(body) {
 				        this.type = syntax_1.Syntax.BlockStatement;
@@ -1244,7 +1244,7 @@ var esprima = (function (exports) {
 				    }
 				    return BlockStatement;
 				}());
-				exports.BlockStatement = BlockStatement;
+				exports$1.BlockStatement = BlockStatement;
 				var BreakStatement = (function () {
 				    function BreakStatement(label) {
 				        this.type = syntax_1.Syntax.BreakStatement;
@@ -1252,7 +1252,7 @@ var esprima = (function (exports) {
 				    }
 				    return BreakStatement;
 				}());
-				exports.BreakStatement = BreakStatement;
+				exports$1.BreakStatement = BreakStatement;
 				var CallExpression = (function () {
 				    function CallExpression(callee, args) {
 				        this.type = syntax_1.Syntax.CallExpression;
@@ -1261,7 +1261,7 @@ var esprima = (function (exports) {
 				    }
 				    return CallExpression;
 				}());
-				exports.CallExpression = CallExpression;
+				exports$1.CallExpression = CallExpression;
 				var CatchClause = (function () {
 				    function CatchClause(param, body) {
 				        this.type = syntax_1.Syntax.CatchClause;
@@ -1270,7 +1270,7 @@ var esprima = (function (exports) {
 				    }
 				    return CatchClause;
 				}());
-				exports.CatchClause = CatchClause;
+				exports$1.CatchClause = CatchClause;
 				var ClassBody = (function () {
 				    function ClassBody(body) {
 				        this.type = syntax_1.Syntax.ClassBody;
@@ -1278,7 +1278,7 @@ var esprima = (function (exports) {
 				    }
 				    return ClassBody;
 				}());
-				exports.ClassBody = ClassBody;
+				exports$1.ClassBody = ClassBody;
 				var ClassDeclaration = (function () {
 				    function ClassDeclaration(id, superClass, body) {
 				        this.type = syntax_1.Syntax.ClassDeclaration;
@@ -1288,7 +1288,7 @@ var esprima = (function (exports) {
 				    }
 				    return ClassDeclaration;
 				}());
-				exports.ClassDeclaration = ClassDeclaration;
+				exports$1.ClassDeclaration = ClassDeclaration;
 				var ClassExpression = (function () {
 				    function ClassExpression(id, superClass, body) {
 				        this.type = syntax_1.Syntax.ClassExpression;
@@ -1298,7 +1298,7 @@ var esprima = (function (exports) {
 				    }
 				    return ClassExpression;
 				}());
-				exports.ClassExpression = ClassExpression;
+				exports$1.ClassExpression = ClassExpression;
 				var ComputedMemberExpression = (function () {
 				    function ComputedMemberExpression(object, property) {
 				        this.type = syntax_1.Syntax.MemberExpression;
@@ -1308,7 +1308,7 @@ var esprima = (function (exports) {
 				    }
 				    return ComputedMemberExpression;
 				}());
-				exports.ComputedMemberExpression = ComputedMemberExpression;
+				exports$1.ComputedMemberExpression = ComputedMemberExpression;
 				var ConditionalExpression = (function () {
 				    function ConditionalExpression(test, consequent, alternate) {
 				        this.type = syntax_1.Syntax.ConditionalExpression;
@@ -1318,7 +1318,7 @@ var esprima = (function (exports) {
 				    }
 				    return ConditionalExpression;
 				}());
-				exports.ConditionalExpression = ConditionalExpression;
+				exports$1.ConditionalExpression = ConditionalExpression;
 				var ContinueStatement = (function () {
 				    function ContinueStatement(label) {
 				        this.type = syntax_1.Syntax.ContinueStatement;
@@ -1326,14 +1326,14 @@ var esprima = (function (exports) {
 				    }
 				    return ContinueStatement;
 				}());
-				exports.ContinueStatement = ContinueStatement;
+				exports$1.ContinueStatement = ContinueStatement;
 				var DebuggerStatement = (function () {
 				    function DebuggerStatement() {
 				        this.type = syntax_1.Syntax.DebuggerStatement;
 				    }
 				    return DebuggerStatement;
 				}());
-				exports.DebuggerStatement = DebuggerStatement;
+				exports$1.DebuggerStatement = DebuggerStatement;
 				var Directive = (function () {
 				    function Directive(expression, directive) {
 				        this.type = syntax_1.Syntax.ExpressionStatement;
@@ -1342,7 +1342,7 @@ var esprima = (function (exports) {
 				    }
 				    return Directive;
 				}());
-				exports.Directive = Directive;
+				exports$1.Directive = Directive;
 				var DoWhileStatement = (function () {
 				    function DoWhileStatement(body, test) {
 				        this.type = syntax_1.Syntax.DoWhileStatement;
@@ -1351,14 +1351,14 @@ var esprima = (function (exports) {
 				    }
 				    return DoWhileStatement;
 				}());
-				exports.DoWhileStatement = DoWhileStatement;
+				exports$1.DoWhileStatement = DoWhileStatement;
 				var EmptyStatement = (function () {
 				    function EmptyStatement() {
 				        this.type = syntax_1.Syntax.EmptyStatement;
 				    }
 				    return EmptyStatement;
 				}());
-				exports.EmptyStatement = EmptyStatement;
+				exports$1.EmptyStatement = EmptyStatement;
 				var ExportAllDeclaration = (function () {
 				    function ExportAllDeclaration(source) {
 				        this.type = syntax_1.Syntax.ExportAllDeclaration;
@@ -1366,7 +1366,7 @@ var esprima = (function (exports) {
 				    }
 				    return ExportAllDeclaration;
 				}());
-				exports.ExportAllDeclaration = ExportAllDeclaration;
+				exports$1.ExportAllDeclaration = ExportAllDeclaration;
 				var ExportDefaultDeclaration = (function () {
 				    function ExportDefaultDeclaration(declaration) {
 				        this.type = syntax_1.Syntax.ExportDefaultDeclaration;
@@ -1374,7 +1374,7 @@ var esprima = (function (exports) {
 				    }
 				    return ExportDefaultDeclaration;
 				}());
-				exports.ExportDefaultDeclaration = ExportDefaultDeclaration;
+				exports$1.ExportDefaultDeclaration = ExportDefaultDeclaration;
 				var ExportNamedDeclaration = (function () {
 				    function ExportNamedDeclaration(declaration, specifiers, source) {
 				        this.type = syntax_1.Syntax.ExportNamedDeclaration;
@@ -1384,7 +1384,7 @@ var esprima = (function (exports) {
 				    }
 				    return ExportNamedDeclaration;
 				}());
-				exports.ExportNamedDeclaration = ExportNamedDeclaration;
+				exports$1.ExportNamedDeclaration = ExportNamedDeclaration;
 				var ExportSpecifier = (function () {
 				    function ExportSpecifier(local, exported) {
 				        this.type = syntax_1.Syntax.ExportSpecifier;
@@ -1393,7 +1393,7 @@ var esprima = (function (exports) {
 				    }
 				    return ExportSpecifier;
 				}());
-				exports.ExportSpecifier = ExportSpecifier;
+				exports$1.ExportSpecifier = ExportSpecifier;
 				var ExpressionStatement = (function () {
 				    function ExpressionStatement(expression) {
 				        this.type = syntax_1.Syntax.ExpressionStatement;
@@ -1401,7 +1401,7 @@ var esprima = (function (exports) {
 				    }
 				    return ExpressionStatement;
 				}());
-				exports.ExpressionStatement = ExpressionStatement;
+				exports$1.ExpressionStatement = ExpressionStatement;
 				var ForInStatement = (function () {
 				    function ForInStatement(left, right, body) {
 				        this.type = syntax_1.Syntax.ForInStatement;
@@ -1412,7 +1412,7 @@ var esprima = (function (exports) {
 				    }
 				    return ForInStatement;
 				}());
-				exports.ForInStatement = ForInStatement;
+				exports$1.ForInStatement = ForInStatement;
 				var ForOfStatement = (function () {
 				    function ForOfStatement(left, right, body) {
 				        this.type = syntax_1.Syntax.ForOfStatement;
@@ -1422,7 +1422,7 @@ var esprima = (function (exports) {
 				    }
 				    return ForOfStatement;
 				}());
-				exports.ForOfStatement = ForOfStatement;
+				exports$1.ForOfStatement = ForOfStatement;
 				var ForStatement = (function () {
 				    function ForStatement(init, test, update, body) {
 				        this.type = syntax_1.Syntax.ForStatement;
@@ -1433,7 +1433,7 @@ var esprima = (function (exports) {
 				    }
 				    return ForStatement;
 				}());
-				exports.ForStatement = ForStatement;
+				exports$1.ForStatement = ForStatement;
 				var FunctionDeclaration = (function () {
 				    function FunctionDeclaration(id, params, body, generator) {
 				        this.type = syntax_1.Syntax.FunctionDeclaration;
@@ -1446,7 +1446,7 @@ var esprima = (function (exports) {
 				    }
 				    return FunctionDeclaration;
 				}());
-				exports.FunctionDeclaration = FunctionDeclaration;
+				exports$1.FunctionDeclaration = FunctionDeclaration;
 				var FunctionExpression = (function () {
 				    function FunctionExpression(id, params, body, generator) {
 				        this.type = syntax_1.Syntax.FunctionExpression;
@@ -1459,7 +1459,7 @@ var esprima = (function (exports) {
 				    }
 				    return FunctionExpression;
 				}());
-				exports.FunctionExpression = FunctionExpression;
+				exports$1.FunctionExpression = FunctionExpression;
 				var Identifier = (function () {
 				    function Identifier(name) {
 				        this.type = syntax_1.Syntax.Identifier;
@@ -1467,7 +1467,7 @@ var esprima = (function (exports) {
 				    }
 				    return Identifier;
 				}());
-				exports.Identifier = Identifier;
+				exports$1.Identifier = Identifier;
 				var IfStatement = (function () {
 				    function IfStatement(test, consequent, alternate) {
 				        this.type = syntax_1.Syntax.IfStatement;
@@ -1477,7 +1477,7 @@ var esprima = (function (exports) {
 				    }
 				    return IfStatement;
 				}());
-				exports.IfStatement = IfStatement;
+				exports$1.IfStatement = IfStatement;
 				var ImportDeclaration = (function () {
 				    function ImportDeclaration(specifiers, source) {
 				        this.type = syntax_1.Syntax.ImportDeclaration;
@@ -1486,7 +1486,7 @@ var esprima = (function (exports) {
 				    }
 				    return ImportDeclaration;
 				}());
-				exports.ImportDeclaration = ImportDeclaration;
+				exports$1.ImportDeclaration = ImportDeclaration;
 				var ImportDefaultSpecifier = (function () {
 				    function ImportDefaultSpecifier(local) {
 				        this.type = syntax_1.Syntax.ImportDefaultSpecifier;
@@ -1494,7 +1494,7 @@ var esprima = (function (exports) {
 				    }
 				    return ImportDefaultSpecifier;
 				}());
-				exports.ImportDefaultSpecifier = ImportDefaultSpecifier;
+				exports$1.ImportDefaultSpecifier = ImportDefaultSpecifier;
 				var ImportNamespaceSpecifier = (function () {
 				    function ImportNamespaceSpecifier(local) {
 				        this.type = syntax_1.Syntax.ImportNamespaceSpecifier;
@@ -1502,7 +1502,7 @@ var esprima = (function (exports) {
 				    }
 				    return ImportNamespaceSpecifier;
 				}());
-				exports.ImportNamespaceSpecifier = ImportNamespaceSpecifier;
+				exports$1.ImportNamespaceSpecifier = ImportNamespaceSpecifier;
 				var ImportSpecifier = (function () {
 				    function ImportSpecifier(local, imported) {
 				        this.type = syntax_1.Syntax.ImportSpecifier;
@@ -1511,7 +1511,7 @@ var esprima = (function (exports) {
 				    }
 				    return ImportSpecifier;
 				}());
-				exports.ImportSpecifier = ImportSpecifier;
+				exports$1.ImportSpecifier = ImportSpecifier;
 				var LabeledStatement = (function () {
 				    function LabeledStatement(label, body) {
 				        this.type = syntax_1.Syntax.LabeledStatement;
@@ -1520,7 +1520,7 @@ var esprima = (function (exports) {
 				    }
 				    return LabeledStatement;
 				}());
-				exports.LabeledStatement = LabeledStatement;
+				exports$1.LabeledStatement = LabeledStatement;
 				var Literal = (function () {
 				    function Literal(value, raw) {
 				        this.type = syntax_1.Syntax.Literal;
@@ -1529,7 +1529,7 @@ var esprima = (function (exports) {
 				    }
 				    return Literal;
 				}());
-				exports.Literal = Literal;
+				exports$1.Literal = Literal;
 				var MetaProperty = (function () {
 				    function MetaProperty(meta, property) {
 				        this.type = syntax_1.Syntax.MetaProperty;
@@ -1538,7 +1538,7 @@ var esprima = (function (exports) {
 				    }
 				    return MetaProperty;
 				}());
-				exports.MetaProperty = MetaProperty;
+				exports$1.MetaProperty = MetaProperty;
 				var MethodDefinition = (function () {
 				    function MethodDefinition(key, computed, value, kind, isStatic) {
 				        this.type = syntax_1.Syntax.MethodDefinition;
@@ -1550,7 +1550,7 @@ var esprima = (function (exports) {
 				    }
 				    return MethodDefinition;
 				}());
-				exports.MethodDefinition = MethodDefinition;
+				exports$1.MethodDefinition = MethodDefinition;
 				var Module = (function () {
 				    function Module(body) {
 				        this.type = syntax_1.Syntax.Program;
@@ -1559,7 +1559,7 @@ var esprima = (function (exports) {
 				    }
 				    return Module;
 				}());
-				exports.Module = Module;
+				exports$1.Module = Module;
 				var NewExpression = (function () {
 				    function NewExpression(callee, args) {
 				        this.type = syntax_1.Syntax.NewExpression;
@@ -1568,7 +1568,7 @@ var esprima = (function (exports) {
 				    }
 				    return NewExpression;
 				}());
-				exports.NewExpression = NewExpression;
+				exports$1.NewExpression = NewExpression;
 				var ObjectExpression = (function () {
 				    function ObjectExpression(properties) {
 				        this.type = syntax_1.Syntax.ObjectExpression;
@@ -1576,7 +1576,7 @@ var esprima = (function (exports) {
 				    }
 				    return ObjectExpression;
 				}());
-				exports.ObjectExpression = ObjectExpression;
+				exports$1.ObjectExpression = ObjectExpression;
 				var ObjectPattern = (function () {
 				    function ObjectPattern(properties) {
 				        this.type = syntax_1.Syntax.ObjectPattern;
@@ -1584,7 +1584,7 @@ var esprima = (function (exports) {
 				    }
 				    return ObjectPattern;
 				}());
-				exports.ObjectPattern = ObjectPattern;
+				exports$1.ObjectPattern = ObjectPattern;
 				var Property = (function () {
 				    function Property(kind, key, computed, value, method, shorthand) {
 				        this.type = syntax_1.Syntax.Property;
@@ -1597,7 +1597,7 @@ var esprima = (function (exports) {
 				    }
 				    return Property;
 				}());
-				exports.Property = Property;
+				exports$1.Property = Property;
 				var RegexLiteral = (function () {
 				    function RegexLiteral(value, raw, pattern, flags) {
 				        this.type = syntax_1.Syntax.Literal;
@@ -1607,7 +1607,7 @@ var esprima = (function (exports) {
 				    }
 				    return RegexLiteral;
 				}());
-				exports.RegexLiteral = RegexLiteral;
+				exports$1.RegexLiteral = RegexLiteral;
 				var RestElement = (function () {
 				    function RestElement(argument) {
 				        this.type = syntax_1.Syntax.RestElement;
@@ -1615,7 +1615,7 @@ var esprima = (function (exports) {
 				    }
 				    return RestElement;
 				}());
-				exports.RestElement = RestElement;
+				exports$1.RestElement = RestElement;
 				var ReturnStatement = (function () {
 				    function ReturnStatement(argument) {
 				        this.type = syntax_1.Syntax.ReturnStatement;
@@ -1623,7 +1623,7 @@ var esprima = (function (exports) {
 				    }
 				    return ReturnStatement;
 				}());
-				exports.ReturnStatement = ReturnStatement;
+				exports$1.ReturnStatement = ReturnStatement;
 				var Script = (function () {
 				    function Script(body) {
 				        this.type = syntax_1.Syntax.Program;
@@ -1632,7 +1632,7 @@ var esprima = (function (exports) {
 				    }
 				    return Script;
 				}());
-				exports.Script = Script;
+				exports$1.Script = Script;
 				var SequenceExpression = (function () {
 				    function SequenceExpression(expressions) {
 				        this.type = syntax_1.Syntax.SequenceExpression;
@@ -1640,7 +1640,7 @@ var esprima = (function (exports) {
 				    }
 				    return SequenceExpression;
 				}());
-				exports.SequenceExpression = SequenceExpression;
+				exports$1.SequenceExpression = SequenceExpression;
 				var SpreadElement = (function () {
 				    function SpreadElement(argument) {
 				        this.type = syntax_1.Syntax.SpreadElement;
@@ -1648,7 +1648,7 @@ var esprima = (function (exports) {
 				    }
 				    return SpreadElement;
 				}());
-				exports.SpreadElement = SpreadElement;
+				exports$1.SpreadElement = SpreadElement;
 				var StaticMemberExpression = (function () {
 				    function StaticMemberExpression(object, property) {
 				        this.type = syntax_1.Syntax.MemberExpression;
@@ -1658,14 +1658,14 @@ var esprima = (function (exports) {
 				    }
 				    return StaticMemberExpression;
 				}());
-				exports.StaticMemberExpression = StaticMemberExpression;
+				exports$1.StaticMemberExpression = StaticMemberExpression;
 				var Super = (function () {
 				    function Super() {
 				        this.type = syntax_1.Syntax.Super;
 				    }
 				    return Super;
 				}());
-				exports.Super = Super;
+				exports$1.Super = Super;
 				var SwitchCase = (function () {
 				    function SwitchCase(test, consequent) {
 				        this.type = syntax_1.Syntax.SwitchCase;
@@ -1674,7 +1674,7 @@ var esprima = (function (exports) {
 				    }
 				    return SwitchCase;
 				}());
-				exports.SwitchCase = SwitchCase;
+				exports$1.SwitchCase = SwitchCase;
 				var SwitchStatement = (function () {
 				    function SwitchStatement(discriminant, cases) {
 				        this.type = syntax_1.Syntax.SwitchStatement;
@@ -1683,7 +1683,7 @@ var esprima = (function (exports) {
 				    }
 				    return SwitchStatement;
 				}());
-				exports.SwitchStatement = SwitchStatement;
+				exports$1.SwitchStatement = SwitchStatement;
 				var TaggedTemplateExpression = (function () {
 				    function TaggedTemplateExpression(tag, quasi) {
 				        this.type = syntax_1.Syntax.TaggedTemplateExpression;
@@ -1692,7 +1692,7 @@ var esprima = (function (exports) {
 				    }
 				    return TaggedTemplateExpression;
 				}());
-				exports.TaggedTemplateExpression = TaggedTemplateExpression;
+				exports$1.TaggedTemplateExpression = TaggedTemplateExpression;
 				var TemplateElement = (function () {
 				    function TemplateElement(value, tail) {
 				        this.type = syntax_1.Syntax.TemplateElement;
@@ -1701,7 +1701,7 @@ var esprima = (function (exports) {
 				    }
 				    return TemplateElement;
 				}());
-				exports.TemplateElement = TemplateElement;
+				exports$1.TemplateElement = TemplateElement;
 				var TemplateLiteral = (function () {
 				    function TemplateLiteral(quasis, expressions) {
 				        this.type = syntax_1.Syntax.TemplateLiteral;
@@ -1710,14 +1710,14 @@ var esprima = (function (exports) {
 				    }
 				    return TemplateLiteral;
 				}());
-				exports.TemplateLiteral = TemplateLiteral;
+				exports$1.TemplateLiteral = TemplateLiteral;
 				var ThisExpression = (function () {
 				    function ThisExpression() {
 				        this.type = syntax_1.Syntax.ThisExpression;
 				    }
 				    return ThisExpression;
 				}());
-				exports.ThisExpression = ThisExpression;
+				exports$1.ThisExpression = ThisExpression;
 				var ThrowStatement = (function () {
 				    function ThrowStatement(argument) {
 				        this.type = syntax_1.Syntax.ThrowStatement;
@@ -1725,7 +1725,7 @@ var esprima = (function (exports) {
 				    }
 				    return ThrowStatement;
 				}());
-				exports.ThrowStatement = ThrowStatement;
+				exports$1.ThrowStatement = ThrowStatement;
 				var TryStatement = (function () {
 				    function TryStatement(block, handler, finalizer) {
 				        this.type = syntax_1.Syntax.TryStatement;
@@ -1735,7 +1735,7 @@ var esprima = (function (exports) {
 				    }
 				    return TryStatement;
 				}());
-				exports.TryStatement = TryStatement;
+				exports$1.TryStatement = TryStatement;
 				var UnaryExpression = (function () {
 				    function UnaryExpression(operator, argument) {
 				        this.type = syntax_1.Syntax.UnaryExpression;
@@ -1745,7 +1745,7 @@ var esprima = (function (exports) {
 				    }
 				    return UnaryExpression;
 				}());
-				exports.UnaryExpression = UnaryExpression;
+				exports$1.UnaryExpression = UnaryExpression;
 				var UpdateExpression = (function () {
 				    function UpdateExpression(operator, argument, prefix) {
 				        this.type = syntax_1.Syntax.UpdateExpression;
@@ -1755,7 +1755,7 @@ var esprima = (function (exports) {
 				    }
 				    return UpdateExpression;
 				}());
-				exports.UpdateExpression = UpdateExpression;
+				exports$1.UpdateExpression = UpdateExpression;
 				var VariableDeclaration = (function () {
 				    function VariableDeclaration(declarations, kind) {
 				        this.type = syntax_1.Syntax.VariableDeclaration;
@@ -1764,7 +1764,7 @@ var esprima = (function (exports) {
 				    }
 				    return VariableDeclaration;
 				}());
-				exports.VariableDeclaration = VariableDeclaration;
+				exports$1.VariableDeclaration = VariableDeclaration;
 				var VariableDeclarator = (function () {
 				    function VariableDeclarator(id, init) {
 				        this.type = syntax_1.Syntax.VariableDeclarator;
@@ -1773,7 +1773,7 @@ var esprima = (function (exports) {
 				    }
 				    return VariableDeclarator;
 				}());
-				exports.VariableDeclarator = VariableDeclarator;
+				exports$1.VariableDeclarator = VariableDeclarator;
 				var WhileStatement = (function () {
 				    function WhileStatement(test, body) {
 				        this.type = syntax_1.Syntax.WhileStatement;
@@ -1782,7 +1782,7 @@ var esprima = (function (exports) {
 				    }
 				    return WhileStatement;
 				}());
-				exports.WhileStatement = WhileStatement;
+				exports$1.WhileStatement = WhileStatement;
 				var WithStatement = (function () {
 				    function WithStatement(object, body) {
 				        this.type = syntax_1.Syntax.WithStatement;
@@ -1791,7 +1791,7 @@ var esprima = (function (exports) {
 				    }
 				    return WithStatement;
 				}());
-				exports.WithStatement = WithStatement;
+				exports$1.WithStatement = WithStatement;
 				var YieldExpression = (function () {
 				    function YieldExpression(argument, delegate) {
 				        this.type = syntax_1.Syntax.YieldExpression;
@@ -1800,13 +1800,13 @@ var esprima = (function (exports) {
 				    }
 				    return YieldExpression;
 				}());
-				exports.YieldExpression = YieldExpression;
+				exports$1.YieldExpression = YieldExpression;
 
 
 			/***/ },
 			/* 8 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var assert_1 = __webpack_require__(9);
 				var error_handler_1 = __webpack_require__(10);
 				var messages_1 = __webpack_require__(11);
@@ -4930,31 +4930,31 @@ var esprima = (function (exports) {
 				    };
 				    return Parser;
 				}());
-				exports.Parser = Parser;
+				exports$1.Parser = Parser;
 
 
 			/***/ },
 			/* 9 */
-			/***/ function(module, exports) {
+			/***/ function(module, exports$1) {
 				// Ensure the condition is true, otherwise throw an error.
 				// This is only to have a better contract semantic, i.e. another safety net
 				// to catch a logic error. The condition shall be fulfilled in normal case.
 				// Do NOT use this to enforce a certain condition on any user input.
-				Object.defineProperty(exports, "__esModule", { value: true });
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				function assert(condition, message) {
 				    /* istanbul ignore if */
 				    if (!condition) {
 				        throw new Error('ASSERT: ' + message);
 				    }
 				}
-				exports.assert = assert;
+				exports$1.assert = assert;
 
 
 			/***/ },
 			/* 10 */
-			/***/ function(module, exports) {
+			/***/ function(module, exports$1) {
 				/* tslint:disable:max-classes-per-file */
-				Object.defineProperty(exports, "__esModule", { value: true });
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var ErrorHandler = (function () {
 				    function ErrorHandler() {
 				        this.errors = [];
@@ -5008,15 +5008,15 @@ var esprima = (function (exports) {
 				    };
 				    return ErrorHandler;
 				}());
-				exports.ErrorHandler = ErrorHandler;
+				exports$1.ErrorHandler = ErrorHandler;
 
 
 			/***/ },
 			/* 11 */
-			/***/ function(module, exports) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				// Error messages should be identical to V8.
-				exports.Messages = {
+				exports$1.Messages = {
 				    BadGetterArity: 'Getter must not have any formal parameters',
 				    BadSetterArity: 'Setter must have exactly one formal parameter',
 				    BadSetterRestParameter: 'Setter function argument must not be a rest parameter',
@@ -5080,8 +5080,8 @@ var esprima = (function (exports) {
 
 			/***/ },
 			/* 12 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var assert_1 = __webpack_require__(9);
 				var character_1 = __webpack_require__(4);
 				var messages_1 = __webpack_require__(11);
@@ -6224,32 +6224,32 @@ var esprima = (function (exports) {
 				    };
 				    return Scanner;
 				}());
-				exports.Scanner = Scanner;
+				exports$1.Scanner = Scanner;
 
 
 			/***/ },
 			/* 13 */
-			/***/ function(module, exports) {
-				Object.defineProperty(exports, "__esModule", { value: true });
-				exports.TokenName = {};
-				exports.TokenName[1 /* BooleanLiteral */] = 'Boolean';
-				exports.TokenName[2 /* EOF */] = '<end>';
-				exports.TokenName[3 /* Identifier */] = 'Identifier';
-				exports.TokenName[4 /* Keyword */] = 'Keyword';
-				exports.TokenName[5 /* NullLiteral */] = 'Null';
-				exports.TokenName[6 /* NumericLiteral */] = 'Numeric';
-				exports.TokenName[7 /* Punctuator */] = 'Punctuator';
-				exports.TokenName[8 /* StringLiteral */] = 'String';
-				exports.TokenName[9 /* RegularExpression */] = 'RegularExpression';
-				exports.TokenName[10 /* Template */] = 'Template';
+			/***/ function(module, exports$1) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
+				exports$1.TokenName = {};
+				exports$1.TokenName[1 /* BooleanLiteral */] = 'Boolean';
+				exports$1.TokenName[2 /* EOF */] = '<end>';
+				exports$1.TokenName[3 /* Identifier */] = 'Identifier';
+				exports$1.TokenName[4 /* Keyword */] = 'Keyword';
+				exports$1.TokenName[5 /* NullLiteral */] = 'Null';
+				exports$1.TokenName[6 /* NumericLiteral */] = 'Numeric';
+				exports$1.TokenName[7 /* Punctuator */] = 'Punctuator';
+				exports$1.TokenName[8 /* StringLiteral */] = 'String';
+				exports$1.TokenName[9 /* RegularExpression */] = 'RegularExpression';
+				exports$1.TokenName[10 /* Template */] = 'Template';
 
 
 			/***/ },
 			/* 14 */
-			/***/ function(module, exports) {
+			/***/ function(module, exports$1) {
 				// Generated by generate-xhtml-entities.js. DO NOT MODIFY!
-				Object.defineProperty(exports, "__esModule", { value: true });
-				exports.XHTMLEntities = {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
+				exports$1.XHTMLEntities = {
 				    quot: '\u0022',
 				    amp: '\u0026',
 				    apos: '\u0027',
@@ -6507,8 +6507,8 @@ var esprima = (function (exports) {
 
 			/***/ },
 			/* 15 */
-			/***/ function(module, exports, __webpack_require__) {
-				Object.defineProperty(exports, "__esModule", { value: true });
+			/***/ function(module, exports$1, __webpack_require__) {
+				Object.defineProperty(exports$1, "__esModule", { value: true });
 				var error_handler_1 = __webpack_require__(10);
 				var scanner_1 = __webpack_require__(12);
 				var token_1 = __webpack_require__(13);
@@ -6651,7 +6651,7 @@ var esprima = (function (exports) {
 				    };
 				    return Tokenizer;
 				}());
-				exports.Tokenizer = Tokenizer;
+				exports$1.Tokenizer = Tokenizer;
 
 
 			/***/ }

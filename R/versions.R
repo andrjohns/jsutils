@@ -1,6 +1,6 @@
 .ESPRIMA_VERSION <- "4.0.1"
-.SASS_VERSION <- "1.93.3"
-.TERSER_VERSION <- "5.44.0"
+.SASS_VERSION <- "1.94.2"
+.TERSER_VERSION <- "5.44.1"
 .TYPESCRIPT_VERSION <- "5.9.3"
 
 #' Get versions of bundled JavaScript libraries
