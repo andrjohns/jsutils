@@ -2,6 +2,11 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    include:
+      - 'inst/bundle/**'
 permissions:
   contents: write
 
