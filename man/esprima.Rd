@@ -6,12 +6,12 @@
 \alias{esprima_tokenize}
 \title{Parse or Tokenize JavaScript code using Esprima}
 \usage{
-esprima_parse(input, options = list(), type = "script")
+esprima_parse(input, options = NULL, type = "script")
 
 esprima_tokenize(input, options = list())
 }
 \arguments{
-\item{input}{A character string containing the JavaScript code to be parsed or tokenized.}
+\item{input}{Either a path to a file or a character string containing the JavaScript code to be parsed or tokenized.}
 
 \item{options}{A list of configuration options to pass to the Esprima parser or tokenizer.}
 

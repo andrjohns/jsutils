@@ -5,7 +5,7 @@
 #' first time this function is called, it will load the esprima library into the JavaScript context,
 #' which may take a few seconds. Subsequent calls will be faster.
 #'
-#' @param input A character string containing the JavaScript code to be parsed or tokenized.
+#' @param input Either a path to a file or a character string containing the JavaScript code to be parsed or tokenized.
 #' @param options A list of configuration options to pass to the Esprima parser or tokenizer.
 #' @param type A character string specifying the type of code to parse: "script" (default) or "module".
 #'
@@ -19,7 +19,10 @@ NULL
 
 #' @rdname esprima
 #' @export
-esprima_parse <- function(input, options = list(), type = "script") {
+esprima_parse <- function(input, options = NULL, type = "script") {
+  if (file.exists(input)) {
+    input <- paste(readLines(input, warn = FALSE), collapse = "\n")
+  }
   if (!(type %in% c("script", "module"))) {
     stop("type must be 'script' or 'module'", call. = FALSE)
   }
@@ -38,6 +41,9 @@ esprima_parse <- function(input, options = list(), type = "script") {
 #' @rdname esprima
 #' @export
 esprima_tokenize <- function(input, options = list()) {
+  if (file.exists(input)) {
+    input <- paste(readLines(input, warn = FALSE), collapse = "\n")
+  }
   if (!isTRUE(ctx_esprima$get("esprima_loaded"))) {
     ctx_esprima$source(system.file("js", paste0("esprima.", .ESPRIMA_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
     ctx_esprima$assign("esprima_loaded", TRUE)

@@ -4,7 +4,7 @@
 #' first time this function is called, it will load the TypeScript library into the JavaScript context,
 #' which may take a few seconds. Subsequent calls will be faster.
 #'
-#' @param input A character string containing the TypeScript code to be transpiled.
+#' @param input Either a path to a file or a character string containing the TypeScript code to be transpiled.
 #' @param options A list of options to pass to the TypeScript transpiler. See the
 #' [TypeScript documentation](https://www.typescriptlang.org/docs/handbook/compiler-options.html) for available options.
 #'
@@ -14,7 +14,10 @@
 #' typescript(ts_code, list(compilerOptions = list(target = "ES5")))
 #'
 #' @export
-typescript <- function(input, options = list()) {
+typescript <- function(input, options = NULL) {
+  if (file.exists(input)) {
+    input <- paste(readLines(input, warn = FALSE), collapse = "\n")
+  }
   if (!isTRUE(ctx_typescript$get("typescript_loaded"))) {
     ctx_typescript$source(system.file("js", paste0("typescript.", .TYPESCRIPT_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
     ctx_typescript$assign("typescript_loaded", TRUE)

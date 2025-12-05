@@ -4,10 +4,10 @@
 \alias{typescript}
 \title{Transpile TypeScript code to JavaScript}
 \usage{
-typescript(input, options = list())
+typescript(input, options = NULL)
 }
 \arguments{
-\item{input}{A character string containing the TypeScript code to be transpiled.}
+\item{input}{Either a path to a file or a character string containing the TypeScript code to be transpiled.}
 
 \item{options}{A list of options to pass to the TypeScript transpiler. See the
 \href{https://www.typescriptlang.org/docs/handbook/compiler-options.html}{TypeScript documentation} for available options.}

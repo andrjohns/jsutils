@@ -4,10 +4,10 @@
 \alias{terser}
 \title{Minify JavaScript code using Terser}
 \usage{
-terser(input, options = list())
+terser(input, options = NULL)
 }
 \arguments{
-\item{input}{A character string containing the JavaScript code to be minified.}
+\item{input}{Either a path to a file or a character string containing the JavaScript code to be minified.}
 
 \item{options}{A list of options to pass to Terser for minification.
 See the \href{https://terser.org/docs/api-reference/#minify-options}{Terser documentation} for available options.}

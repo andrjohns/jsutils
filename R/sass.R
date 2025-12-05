@@ -5,7 +5,7 @@
 #' first time this function is called, it will load the sass.js library into the JavaScript context,
 #' which may take a few seconds. Subsequent calls will be faster.
 #'
-#' @param input A character string containing the SASS/SCSS code to be compiled.
+#' @param input Either a path to a file or a character string containing the SASS/SCSS code to be compiled.
 #' @param options A list of options to pass to the sass.js compiler.
 #'
 #' @return A list containing the compiled CSS code and any warnings or errors.
@@ -14,7 +14,10 @@
 #' sass(scss_code, list(style = "compressed"))
 #'
 #' @export
-sass <- function(input, options = list()) {
+sass <- function(input, options = NULL) {
+  if (file.exists(input)) {
+    input <- paste(readLines(input, warn = FALSE), collapse = "\n")
+  }
   if (!isTRUE(ctx_sass$get("sass_loaded"))) {
     # https://github.com/dart-lang/sdk/issues/27979
     ctx_sass$source(code=paste0("globalThis.location = { href: '", getwd(), "' };"))
