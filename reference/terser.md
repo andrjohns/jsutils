@@ -8,14 +8,15 @@ calls will be faster.
 ## Usage
 
 ``` r
-terser(input, options = list())
+terser(input, options = NULL)
 ```
 
 ## Arguments
 
 - input:
 
-  A character string containing the JavaScript code to be minified.
+  Either a path to a file or a character string containing the
+  JavaScript code to be minified.
 
 - options:
 

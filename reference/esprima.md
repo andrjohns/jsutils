@@ -8,7 +8,7 @@ calls will be faster.
 ## Usage
 
 ``` r
-esprima_parse(input, options = list(), type = "script")
+esprima_parse(input, options = NULL, type = "script")
 
 esprima_tokenize(input, options = list())
 ```
@@ -17,8 +17,8 @@ esprima_tokenize(input, options = list())
 
 - input:
 
-  A character string containing the JavaScript code to be parsed or
-  tokenized.
+  Either a path to a file or a character string containing the
+  JavaScript code to be parsed or tokenized.
 
 - options:
 

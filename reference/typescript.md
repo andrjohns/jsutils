@@ -8,14 +8,15 @@ take a few seconds. Subsequent calls will be faster.
 ## Usage
 
 ``` r
-typescript(input, options = list())
+typescript(input, options = NULL)
 ```
 
 ## Arguments
 
 - input:
 
-  A character string containing the TypeScript code to be transpiled.
+  Either a path to a file or a character string containing the
+  TypeScript code to be transpiled.
 
 - options:
 

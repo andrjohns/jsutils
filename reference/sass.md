@@ -9,14 +9,15 @@ seconds. Subsequent calls will be faster.
 ## Usage
 
 ``` r
-sass(input, options = list())
+sass(input, options = NULL)
 ```
 
 ## Arguments
 
 - input:
 
-  A character string containing the SASS/SCSS code to be compiled.
+  Either a path to a file or a character string containing the SASS/SCSS
+  code to be compiled.
 
 - options:
 
