@@ -11,6 +11,7 @@ A collection of popular/useful JavaScript utilities, including the terser minifi
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/andrjohns/QuickJSR}
   \item \url{https://andrjohns.github.io/jsutils/}
 }
 
