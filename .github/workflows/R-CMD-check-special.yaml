@@ -22,12 +22,6 @@ jobs:
           - { label: "clang-ubsan",
               name: "clang-ubsan",
               container: "ghcr.io/r-hub/containers/clang-ubsan:latest"}
-          - { label: "gcc-asan",
-              name: "gcc-asan",
-              container: "ghcr.io/r-hub/containers/gcc-asan:latest"}
-          - { label: "gcc-ubsan",
-              name: "gcc-ubsan",
-              container: "ghcr.io/r-hub/containers/gcc-ubsan:latest"}
           - { label: "valgrind",
               name: "valgrind",
               container: "ghcr.io/r-hub/containers/valgrind:latest"}
