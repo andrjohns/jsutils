@@ -12,4 +12,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:
     QuickJSR (>= 1.8.1)
-URL: https://andrjohns.github.io/jsutils/
+URL: https://github.com/andrjohns/QuickJSR, https://andrjohns.github.io/jsutils/
