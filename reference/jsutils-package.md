@@ -7,6 +7,8 @@ terser minifier, sass compiler, typescript transpiler, and more.
 
 Useful links:
 
+- <https://github.com/andrjohns/QuickJSR>
+
 - <https://andrjohns.github.io/jsutils/>
 
 ## Author
