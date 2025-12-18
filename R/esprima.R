@@ -35,6 +35,7 @@ esprima_parse <- function(input, options = NULL, type = "script") {
   if (!is.null(res$error)) {
     stop(res$error$message, call. = FALSE)
   }
+
   res
 }
 
