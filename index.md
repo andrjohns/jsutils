@@ -16,6 +16,7 @@ You can install the development version of jsutils from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("andrjohns/jsutils")
 ```
@@ -27,6 +28,7 @@ pak::pak("andrjohns/jsutils")
 The `sass` function compiles SCSS or SASS code to CSS:
 
 ``` r
+
 library(jsutils)
 
 scss_code <- "h1 { font-size: 40px; code { font-face: Roboto Mono; } }"
@@ -53,6 +55,7 @@ sass(scss_code, options = list(style = "compressed"))
 The `terser` function minifies JavaScript code:
 
 ``` r
+
 js_code <- "function hello() { console.log('Hello, world!'); }"
 
 # Minify JavaScript code
@@ -71,6 +74,7 @@ terser(js_code, list(mangle=list(toplevel = TRUE)))
 The `typescript` function compiles TypeScript code to JavaScript:
 
 ``` r
+
 ts_code <- "let arrow_func = (msg: string): void => { console.log(msg); };"
 
 # Compile TypeScript code to JavaScript
@@ -102,6 +106,7 @@ Separate `esprima_parse` and `esprima_tokenize` functions are provided
 to parse or tokenize JavaScript code respectively:
 
 ``` r
+
 js_code <- "function hello() { console.log('Hello, world!'); }"
 
 # Parse JavaScript code
