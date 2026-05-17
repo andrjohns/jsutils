@@ -2332,7 +2332,7 @@ var ts = (function (exports) {
 
 			// src/compiler/corePublic.ts
 			var versionMajorMinor = "6.0";
-			var version = "6.0.2";
+			var version = "6.0.3";
 			var Comparison = /* @__PURE__ */ ((Comparison3) => {
 			  Comparison3[Comparison3["LessThan"] = -1] = "LessThan";
 			  Comparison3[Comparison3["EqualTo"] = 0] = "EqualTo";
@@ -49747,6 +49747,8 @@ ${lanes.join("\n")}
 			      return 1 /* IsContainer */ | 4 /* IsControlFlowContainer */ | 32 /* HasLocals */ | 8 /* IsFunctionLike */ | 16 /* IsFunctionExpression */ | 256 /* PropagatesThisKeyword */;
 			    case 269 /* ModuleBlock */:
 			      return 4 /* IsControlFlowContainer */;
+			    case 173 /* PropertyDeclaration */:
+			      return node.initializer ? 4 /* IsControlFlowContainer */ : 0 /* None */;
 			    case 300 /* CatchClause */:
 			    case 249 /* ForStatement */:
 			    case 250 /* ForInStatement */:
@@ -139568,7 +139570,8 @@ ${lanes.join("\n")}
 			  NameValidationResult2[NameValidationResult2["NameTooLong"] = 2] = "NameTooLong";
 			  NameValidationResult2[NameValidationResult2["NameStartsWithDot"] = 3] = "NameStartsWithDot";
 			  NameValidationResult2[NameValidationResult2["NameStartsWithUnderscore"] = 4] = "NameStartsWithUnderscore";
-			  NameValidationResult2[NameValidationResult2["NameContainsNonURISafeCharacters"] = 5] = "NameContainsNonURISafeCharacters";
+			  NameValidationResult2[NameValidationResult2["NameContainsInvalidCharacters"] = 5] = "NameContainsInvalidCharacters";
+			  NameValidationResult2[NameValidationResult2["NameContainsNonURISafeCharacters"] = 5 /* NameContainsInvalidCharacters */] = "NameContainsNonURISafeCharacters";
 			  return NameValidationResult2;
 			})(NameValidationResult || {});
 			var maxPackageNameLength = 214;
@@ -139614,8 +139617,8 @@ ${lanes.join("\n")}
 			      return 0 /* Ok */;
 			    }
 			  }
-			  if (encodeURIComponent(packageName) !== packageName) {
-			    return 5 /* NameContainsNonURISafeCharacters */;
+			  if (!/^[\w.-]+$/.test(packageName)) {
+			    return 5 /* NameContainsInvalidCharacters */;
 			  }
 			  return 0 /* Ok */;
 			}
@@ -139639,8 +139642,8 @@ ${lanes.join("\n")}
 			      return `'${typing}':: ${kind} name '${name}' cannot start with '.'`;
 			    case 4 /* NameStartsWithUnderscore */:
 			      return `'${typing}':: ${kind} name '${name}' cannot start with '_'`;
-			    case 5 /* NameContainsNonURISafeCharacters */:
-			      return `'${typing}':: ${kind} name '${name}' contains non URI safe characters`;
+			    case 5 /* NameContainsInvalidCharacters */:
+			      return `'${typing}':: ${kind} name '${name}' contains invalid characters`;
 			    case 0 /* Ok */:
 			      return Debug.fail();
 			    // Shouldn't have called this.
@@ -186478,6 +186481,22 @@ ${options.prefix}` : "\n" : options.prefix
 			  /** @internal */
 			  installPackage(req) {
 			    const { fileName, packageName, projectName, projectRootPath, id } = req;
+			    const validationResult = ts_JsTyping_exports.validatePackageName(packageName);
+			    if (validationResult !== ts_JsTyping_exports.NameValidationResult.Ok) {
+			      const message = ts_JsTyping_exports.renderPackageNameValidationFailure(validationResult, packageName);
+			      if (this.log.isEnabled()) {
+			        this.log.writeLine(message);
+			      }
+			      const response = {
+			        kind: ActionPackageInstalled,
+			        projectName,
+			        id,
+			        success: false,
+			        message
+			      };
+			      this.sendResponse(response);
+			      return;
+			    }
 			    const cwd = forEachAncestorDirectory(getDirectoryPath(fileName), (directory) => {
 			      if (this.installTypingHost.fileExists(combinePaths(directory, "package.json"))) {
 			        return directory;

@@ -79,7 +79,7 @@ var terser = (function (exports) {
       for (const i in defs) if (HOP(defs, i)) {
           if (!args || !HOP(args, i)) {
               ret[i] = defs[i];
-          } else if (i === "ecma") {
+          } else if (i === "ecma" || i === "builtins_ecma") {
               let ecma = args[i] | 0;
               if (ecma > 5 && ecma < 2015) ecma += 2009;
               ret[i] = ecma;
@@ -11916,7 +11916,10 @@ var terser = (function (exports) {
   AST_Chain.prototype.shallow_cmp = pass_through;
 
   AST_Dot.prototype.shallow_cmp = function(other) {
-      return this.property === other.property;
+      return (
+          this.property === other.property
+          && !!this.quote === !!other.quote
+      );
   };
 
   AST_DotHash.prototype.shallow_cmp = function(other) {
@@ -12796,6 +12799,7 @@ var terser = (function (exports) {
           if (
               function_defs
               && node instanceof AST_VarDef
+              && node.name instanceof AST_Symbol
               && node.value instanceof AST_Lambda
               && !node.value.name
               && keep_name(options.keep_fnames, node.name.name)
@@ -13854,10 +13858,14 @@ var terser = (function (exports) {
   // Note: Lots of methods and functions are missing here, in case they aren't pure
   // or not available in all JS environments.
 
-  function make_nested_lookup(obj) {
+  const make_nested_lookup = (feature_callback) => (compressor) => {
+      const obj = feature_callback(feature_variables(compressor));
+
       const out = new Map();
       for (var key of Object.keys(obj)) {
-          out.set(key, makePredicate(obj[key]));
+          if (obj[key]) {
+              out.set(key, makePredicate(remove_false(obj[key])));
+          }
       }
 
       const does_have = (global_name, fname) => {
@@ -13865,7 +13873,73 @@ var terser = (function (exports) {
           return inner_map != null && inner_map.has(fname);
       };
       return does_have;
+  };
+
+  const make_lookup = (feature_callback) => (compressor) => {
+      const obj = feature_callback(feature_variables(compressor));
+
+      const predicate = makePredicate(remove_false(obj));
+      const does_have = (global_name) => {
+          return predicate.has(global_name);
+      };
+      return does_have;
+  };
+
+  function remove_false(arr) {
+      for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === false) {
+              arr.splice(i, 1);
+              i--;
+          }
+      }
+      return arr;
   }
+
+  /** Generate the object with arguments seen below */
+  function feature_variables(compressor) {
+      return {
+          sloppy: compressor.option("unsafe"),
+          es: compressor.option("builtins_ecma"),
+      };
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  const pure_access_globals = make_lookup(({ sloppy, es }) => [
+      "Array",
+      "Boolean",
+      "clearInterval",
+      "clearTimeout",
+      "console",
+      "Date",
+      "decodeURI",
+      "decodeURIComponent",
+      "encodeURI",
+      "encodeURIComponent",
+      "Error",
+      "escape",
+      "eval",
+      "EvalError",
+      "Function",
+      es >= 2020 && "globalThis",
+      "isFinite",
+      "isNaN",
+      "JSON",
+      "Math",
+      "Number",
+      "parseFloat",
+      "parseInt",
+      "RangeError",
+      "ReferenceError",
+      "RegExp",
+      "Object",
+      "setInterval",
+      "setTimeout",
+      "String",
+      "SyntaxError",
+      "TypeError",
+      "unescape",
+      "URIError",
+  ]);
 
   // Objects which are safe to access without throwing or causing a side effect.
   // Usually we'd check the `unsafe` option first but these are way too common for that
@@ -13878,17 +13952,90 @@ var terser = (function (exports) {
       "Promise",
   ]);
 
+  // eslint-disable-next-line no-unused-vars
+  const is_pure_native_fn = make_lookup(({ sloppy, es }) => [
+      sloppy && es >= 2021 && "AggregateError",
+      "Array",
+      "ArrayBuffer",
+      es >= 2020 && "BigInt",
+      es >= 2020 && "BigInt64Array",
+      es >= 2020 && "BigUint64Array",
+      "Boolean",
+      "Date",
+      sloppy && "decodeURI",
+      sloppy && "decodeURIComponent",
+      sloppy && "encodeURI",
+      sloppy && "encodeURIComponent",
+      "Error",
+      "escape",
+      "EvalError",
+      es >= 2021 && "FinalizationRegistry",
+      es >= 2026 && "Float16Array",
+      "Float32Array",
+      "Float64Array",
+      "Int16Array",
+      "Int32Array",
+      "Int8Array",
+      "isFinite",
+      "isNaN",
+      es >= 2026 && "Iterator",
+      es >= 2015 && "Map",
+      "Number",
+      "parseFloat",
+      "parseInt",
+      es >= 2015 && "Promise",
+      es >= 2015 && "Proxy",
+      "RangeError",
+      "ReferenceError",
+      sloppy && "RegExp",
+      es >= 2015 && "Set",
+      "String",
+      es >= 2015 && "Symbol",
+      "SyntaxError",
+      "TypeError",
+      "Uint16Array",
+      "Uint32Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+      sloppy && "unescape",
+      "URIError",
+      sloppy && es >= 2015 && "WeakMap",
+      sloppy && es >= 2021 && "WeakRef",
+      sloppy && es >= 2015 && "WeakSet",
+  ]);
+
+  const arg1_is_iterable = new Set([
+      "Map",
+      "Set",
+      "WeakMap",
+      "WeakSet",
+  ]);
+  const arg1_is_range_or_iterable = new Set([
+      "ArrayBuffer",
+      "Float32Array",
+      "Float64Array",
+      "Int16Array",
+      "Int32Array",
+      "Int8Array",
+      "Uint16Array",
+      "Uint32Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+  ]);
+  const lone_arg_is_range = new Set(["Array"]);
+
   const object_methods = [
       "constructor",
       "toString",
       "valueOf",
   ];
 
-  const is_pure_native_method = make_nested_lookup({
+  // eslint-disable-next-line no-unused-vars
+  const is_pure_native_method = make_nested_lookup(({ sloppy, es }) => ({
       Array: [
-          "at",
-          "flat",
-          "includes",
+          es >= 2022 && "at",
+          es >= 2019 && "flat",
+          es >= 2016 && "includes",
           "indexOf",
           "join",
           "lastIndexOf",
@@ -13909,90 +14056,160 @@ var terser = (function (exports) {
           ...object_methods,
       ],
       String: [
-          "at",
+          es >= 2022 && "at",
           "charAt",
           "charCodeAt",
-          "charPointAt",
+          es >= 2015 && "codePointAt",
           "concat",
-          "endsWith",
-          "fromCharCode",
-          "fromCodePoint",
-          "includes",
+          es >= 2025 && "endsWith",
+          es >= 2015 && "includes",
           "indexOf",
           "italics",
           "lastIndexOf",
-          "localeCompare",
+          es >= 2020 && "localeCompare",
           "match",
-          "matchAll",
-          "normalize",
-          "padStart",
-          "padEnd",
-          "repeat",
+          es >= 2020 && "matchAll",
+          es >= 2015 && "normalize",
+          es >= 2017 && "padStart",
+          es >= 2017 && "padEnd",
+          es >= 2015 && sloppy && "repeat",
           "replace",
-          "replaceAll",
+          es >= 2021 && "replaceAll",
           "search",
           "slice",
           "split",
-          "startsWith",
+          es >= 2015 && "startsWith",
           "substr",
           "substring",
-          "repeat",
+          es >= 2015 && "repeat",
           "toLocaleLowerCase",
           "toLocaleUpperCase",
           "toLowerCase",
           "toUpperCase",
           "trim",
-          "trimEnd",
-          "trimStart",
+          es >= 2019 && "trimEnd",
+          es >= 2019 && "trimStart",
+          es >= 2019 && "trimLeft",
+          es >= 2019 && "trimRight",
           ...object_methods,
       ],
-  });
+  }));
 
-  const is_pure_native_fn = make_nested_lookup({
+  // eslint-disable-next-line no-unused-vars
+  const is_pure_native_static_fn = make_nested_lookup(({ sloppy, es }) => ({
       Array: [
           "isArray",
+          es >= 2015 && "of",
       ],
+      ArrayBuffer: [
+          "isView",
+      ],
+      BigInt: es >= 2020 && [
+          sloppy && "asIntN",
+          sloppy && "asUintN",
+      ],
+      BigInt64Array: sloppy && es >= 2020 && ["of"],
+      BigUint64Array: sloppy && es >= 2020 && ["of"],
+      Date: [
+          "now",
+          "parse",
+          "UTC",
+      ],
+      Error: [
+          es >= 2026 && "isError",
+      ],
+      Float16Array: sloppy && es >= 2026 && ["of"],
+      Float32Array: sloppy && ["of"],
+      Float64Array: sloppy && ["of"],
+      Int16Array: sloppy && ["of"],
+      Int32Array: sloppy && ["of"],
+      Int8Array: sloppy && ["of"],
       Math: [
           "abs",
           "acos",
+          es >= 2015 && "acosh",
           "asin",
+          es >= 2015 && "asinh",
           "atan",
-          "ceil",
-          "cos",
-          "exp",
-          "floor",
-          "log",
-          "round",
-          "sin",
-          "sqrt",
-          "tan",
           "atan2",
-          "pow",
+          es >= 2015 && "atanh",
+          es >= 2015 && "cbrt",
+          "ceil",
+          es >= 2015 && "clz32",
+          "cos",
+          es >= 2015 && "cosh",
+          "exp",
+          es >= 2015 && "expm1",
+          "floor",
+          es >= 2026 && "f16round",
+          es >= 2015 && "fround",
+          es >= 2015 && "hypot",
+          es >= 2015 && "imul",
+          "log",
+          es >= 2015 && "log10",
+          es >= 2015 && "log1p",
+          es >= 2015 && "log2",
           "max",
           "min",
+          "pow",
+          "round",
+          es >= 2015 && "sign",
+          "sin",
+          es >= 2015 && "sinh",
+          "sqrt",
+          "tan",
+          es >= 2015 && "tanh",
+          es >= 2015 && "trunc",
       ],
       Number: [
-          "isFinite",
-          "isNaN",
+          es >= 2015 && "isFinite",
+          es >= 2015 && "isInteger",
+          es >= 2015 && "isSafeInteger",
+          es >= 2015 && "isNaN",
+          es >= 2015 && "parseFloat",
+          es >= 2015 && "parseInt",
       ],
       Object: [
-          "create",
-          "getOwnPropertyDescriptor",
-          "getOwnPropertyNames",
-          "getPrototypeOf",
+          sloppy && "create",
+          sloppy && "getOwnPropertyDescriptor",
+          es >= 2017 && sloppy && "getOwnPropertyDescriptors",
+          sloppy && "getOwnPropertyNames",
+          es >= 2015 && sloppy && "getOwnPropertySymbols",
+          sloppy && "getPrototypeOf",
+          es >= 2022 && sloppy && "hasOwn",
+          es >= 2015 && "is",
           "isExtensible",
           "isFrozen",
           "isSealed",
-          "hasOwn",
-          "keys",
+          es >= 2015 && sloppy && "keys",
+      ],
+      Promise: es >= 2015 && [
+          es >= 2024 && "withResolvers",
+      ],
+      Proxy: es >= 2015 && [
+          sloppy && "revocable",
+      ],
+      Reflect: es >= 2015 && [
+          sloppy && "has",
+          sloppy && "isExtensible",
+          sloppy && "ownKeys",
+      ],
+      RegExp: [
+          es >= 2026 && sloppy && "escape",
       ],
       String: [
           "fromCharCode",
+          sloppy && es >= 2025 && "fromCodePoint",
       ],
-  });
+      Uint16Array: ["of"],
+      Uint32Array: ["of"],
+      Uint8Array: ["of"],
+      Uint8ClampedArray: ["of"],
+  }));
 
   // Known numeric values which come with JS environments
-  const is_pure_native_value = make_nested_lookup({
+  // eslint-disable-next-line no-unused-vars
+  const is_pure_native_static_property = make_nested_lookup(({ sloppy, es }) => ({
       Math: [
           "E",
           "LN10",
@@ -14004,13 +14221,130 @@ var terser = (function (exports) {
           "SQRT2",
       ],
       Number: [
+          es >= 2015 && "EPSILON",
+          es >= 2015 && "MAX_SAFE_VALUE",
           "MAX_VALUE",
+          es >= 2015 && "MIN_SAFE_VALUE",
           "MIN_VALUE",
           "NaN",
           "NEGATIVE_INFINITY",
           "POSITIVE_INFINITY",
       ],
-  });
+      RegExp: [
+          "$_",
+          "$0",
+          "$1",
+          "$2",
+          "$3",
+          "$4",
+          "$5",
+          "$6",
+          "$7",
+          "$8",
+          "$9",
+          "input",
+          "lastMatch",
+          "lastParen",
+          "leftContext",
+          "rightContext",
+      ],
+  }));
+
+  const re_uppercase_first_letter = /^[A-Z]/;
+  function is_pure_builtin_call(compressor, call) {
+      let builtin = "";
+      let method = "";
+
+      let exp = call.expression;
+      if (is_undeclared_ref(exp)) {
+          builtin = exp.name;
+      } else if (exp instanceof AST_Dot) {
+          method = exp.property;
+
+          exp = exp.expression;
+          if (is_undeclared_ref(exp)) {
+              if (
+                  // globalThis.pureFunc()
+                  exp.name === "globalThis"
+                  && compressor.option("builtins_ecma") >= 2020
+              ) {
+                  builtin = method;
+                  method = "";
+              } else {
+                  // SomeBuiltin.pureFunc()
+                  builtin = exp.name;
+              }
+          } else if (exp instanceof AST_Dot) {
+              if (
+                  is_undeclared_ref(exp.expression)
+                  && exp.expression.name === "globalThis"
+                  && compressor.option("builtins_ecma") >= 2020
+              ) {
+                  // globalThis.SomeBuiltin.pureFunc()
+                  builtin = exp.property;
+              } else {
+                  return false;
+              }
+          } else {
+              return false;
+          }
+      } else {
+          return false;
+      }
+
+      if (!method) {
+          if (compressor.is_pure_native_fn(builtin)) {
+              // some require `new`, others throw if you use it
+              const is_new = call instanceof AST_New;
+              const should_be_new = re_uppercase_first_letter.test(builtin); // true of all `is_pure_native_fn`
+              if (is_new !== should_be_new) return false;
+
+              if (!is_builtin_pure_with_these_args(builtin, call.args)) {
+                  return false;
+              }
+
+              return true;
+          }
+
+          return false;
+      } else {
+          return compressor.is_pure_native_static_fn(builtin, method);
+      }
+  }
+
+  /** Some builtins are listed above but their purity is subject to some conditions */
+  function is_builtin_pure_with_these_args(builtin, args) {
+      // all the builtins we deal with here are ok with getting 0 args
+      if (args.length === 0) return true;
+
+      let arg1 = args[0];
+      if (arg1 instanceof AST_SymbolRef) {
+          arg1 = arg1.fixed_value();
+      }
+
+      if (lone_arg_is_range.has(builtin)) { // new Array(number)
+          const arg_valid = args.length > 1
+              || arg1 instanceof AST_Number
+                  && arg1.value >= 0 && arg1.value <= 0xffffffff;
+              // TODO: or, we are asked to ignore TypeError
+          if (!arg_valid) return false;
+      }
+
+      if (arg1_is_range_or_iterable.has(builtin)) { // new Float32Array(number | Array)
+          const arg_valid = args.length === 0
+              || arg1 instanceof AST_Array
+              || arg1 instanceof AST_Number
+                  && arg1.value >= 0 && arg1.value <= 0xffffffff;
+          if (!arg_valid) return false;
+      }
+
+      if (arg1_is_iterable.has(builtin)) { // new Set(iterable)
+          const arg_valid = args.length === 0 || arg1 instanceof AST_Array;
+          if (!arg_valid) return false;
+      }
+
+      return true;
+  }
 
   /***********************************************************************
 
@@ -14895,13 +15229,9 @@ var terser = (function (exports) {
               return false;
           }
           if (is_undeclared_ref(expr) && global_pure_fns.has(expr.name)) return true;
-          if (
-              expr instanceof AST_Dot
-              && is_undeclared_ref(expr.expression)
-              && is_pure_native_fn(expr.expression.name, expr.property)
-          ) {
-              return true;
-          }
+          if (is_pure_builtin_call(compressor, this)) return true;
+      } else if (compressor.option("builtins_pure")) {
+          if (is_pure_builtin_call(compressor, this)) return true;
       }
       if ((this instanceof AST_New) && compressor.option("pure_new")) {
           return true;
@@ -14932,7 +15262,7 @@ var terser = (function (exports) {
       } else if (!this.may_throw_on_access(compressor)) {
           native_obj = "Object";
       }
-      return native_obj != null && is_pure_native_method(native_obj, this.property);
+      return native_obj != null && compressor.is_pure_native_method(native_obj, this.property);
   });
 
   // tell me if a statement aborts
@@ -15462,7 +15792,7 @@ var terser = (function (exports) {
               if (first_arg == null || first_arg.thedef && first_arg.thedef.undeclared) {
                   return this.clone();
               }
-              if (!is_pure_native_value(exp.name, key))
+              if (!compressor.is_pure_native_static_property(exp.name, key))
                   return this;
               obj = global_objs[exp.name];
           } else {
@@ -15518,14 +15848,14 @@ var terser = (function (exports) {
               if ((first_arg == null || first_arg.thedef && first_arg.thedef.undeclared)) {
                   return this.clone();
               }
-              if (!is_pure_native_fn(e.name, key)) return this;
+              if (!compressor.is_pure_native_static_fn(e.name, key)) return this;
               val = global_objs[e.name];
           } else {
               val = e._eval(compressor, depth + 1, /* don't pass ast_chain (exponential work) */);
 
               if (val === e || !val)
                   return this;
-              if (!is_pure_native_method(val.constructor.name, key))
+              if (!compressor.is_pure_native_method(val.constructor.name, key))
                   return this;
           }
           var args = [];
@@ -15818,8 +16148,8 @@ var terser = (function (exports) {
       AST_ConciseMethod,
       AST_ObjectGetter,
       AST_ObjectSetter,
-  ], function () {
-      return this.computed_key() ? this.key : null;
+  ], function (compressor, first_in_statement) {
+      return this.computed_key() ? this.key.drop_side_effect_free(compressor, first_in_statement) : null;
   });
 
   def_drop_side_effect_free([
@@ -16042,6 +16372,7 @@ var terser = (function (exports) {
           return scan_ref_scoped(node, descend);
       });
       self.walk(tw);
+
       // pass 2: for every used symbol we need to walk its
       // initialization code to figure out if it uses other
       // symbols (that may not be in_use).
@@ -16052,6 +16383,7 @@ var terser = (function (exports) {
               init.walk(tw);
           });
       });
+
       // pass 3: we should drop declarations not in_use
       var tt = new TreeTransformer(
           function before(node, descend, in_list) {
@@ -19315,6 +19647,8 @@ var terser = (function (exports) {
               drop_console  : false,
               drop_debugger : !false_by_default,
               ecma          : 5,
+              builtins_ecma : 5,
+              builtins_pure : false,
               evaluate      : !false_by_default,
               expression    : false,
               global_defs   : false,
@@ -19410,6 +19744,12 @@ var terser = (function (exports) {
           this._mangle_options = mangle_options
               ? format_mangler_options(mangle_options)
               : mangle_options;
+
+          this.pure_access_globals = pure_access_globals(this);
+          this.is_pure_native_fn = is_pure_native_fn(this);
+          this.is_pure_native_method = is_pure_native_method(this);
+          this.is_pure_native_static_fn = is_pure_native_static_fn(this);
+          this.is_pure_native_static_property = is_pure_native_static_property(this);
       }
 
       mangle_options() {
@@ -19744,10 +20084,9 @@ var terser = (function (exports) {
       return scope.find_variable(name);
   }
 
-  var global_names = makePredicate("Array Boolean clearInterval clearTimeout console Date decodeURI decodeURIComponent encodeURI encodeURIComponent Error escape eval EvalError Function isFinite isNaN JSON Math Number parseFloat parseInt RangeError ReferenceError RegExp Object setInterval setTimeout String SyntaxError TypeError unescape URIError");
   AST_SymbolRef.DEFMETHOD("is_declared", function(compressor) {
       return !this.definition().undeclared
-          || compressor.option("unsafe") && global_names.has(this.name);
+          || (compressor.option("unsafe") || compressor.option("builtins_pure")) && compressor.pure_access_globals(this.name);
   });
 
   /* -----[ optimizers ]----- */
@@ -28238,6 +28577,7 @@ var terser = (function (exports) {
       "c",
       "cache",
       "caches",
+      "calendar",
       "call",
       "caller",
       "camera",
@@ -28292,6 +28632,7 @@ var terser = (function (exports) {
       "cast",
       "catch",
       "category",
+      "cause",
       "cbrt",
       "cd",
       "ceil",
@@ -28836,7 +29177,11 @@ var terser = (function (exports) {
       "databases",
       "datagrams",
       "dataset",
+      "dateStyle",
       "dateTime",
+      "day",
+      "dayPeriod",
+      "days",
       "db",
       "debug",
       "debuggerEnabled",
@@ -29189,6 +29534,7 @@ var terser = (function (exports) {
       "enumerateEditable",
       "environmentBlendMode",
       "equals",
+      "era",
       "error",
       "errorCode",
       "errorDetail",
@@ -29434,6 +29780,7 @@ var terser = (function (exports) {
       "forwardZ",
       "foundation",
       "fr",
+      "fractionalSecondDigits",
       "fragment",
       "fragmentDirective",
       "frame",
@@ -29964,6 +30311,10 @@ var terser = (function (exports) {
       "host",
       "hostCandidate",
       "hostname",
+      "hour",
+      "hour12",
+      "hourCycle",
+      "hours",
       "href",
       "hrefTranslate",
       "hreflang",
@@ -30651,7 +31002,9 @@ var terser = (function (exports) {
       "method",
       "methodDetails",
       "methodName",
+      "microseconds",
       "mid",
+      "milliseconds",
       "mimeType",
       "mimeTypes",
       "min",
@@ -30671,6 +31024,8 @@ var terser = (function (exports) {
       "minValue",
       "minWidth",
       "minimumLatency",
+      "minute",
+      "minutes",
       "mipLevel",
       "mipLevelCount",
       "mipmapFilter",
@@ -30683,6 +31038,8 @@ var terser = (function (exports) {
       "model",
       "modify",
       "module",
+      "month",
+      "months",
       "mount",
       "move",
       "moveBefore",
@@ -30949,6 +31306,7 @@ var terser = (function (exports) {
       "names",
       "namespaceURI",
       "namespaces",
+      "nanoseconds",
       "nativeApplication",
       "nativeMap",
       "nativeObjectCreate",
@@ -31019,6 +31377,8 @@ var terser = (function (exports) {
       "numberOfItems",
       "numberOfOutputs",
       "numberValue",
+      "numberingSystem",
+      "numeric",
       "oMatchesSelector",
       "object",
       "object-fit",
@@ -32366,6 +32726,8 @@ var terser = (function (exports) {
       "searchBox",
       "searchBoxJavaBridge_",
       "searchParams",
+      "second",
+      "seconds",
       "sectionRowIndex",
       "secureConnectionStart",
       "securePaymentConfirmationAvailability",
@@ -33014,6 +33376,9 @@ var terser = (function (exports) {
       "timeOrigin",
       "timeRemaining",
       "timeStamp",
+      "timeStyle",
+      "timeZone",
+      "timeZoneName",
       "timecode",
       "timeline",
       "timelineTime",
@@ -33603,6 +33968,8 @@ var terser = (function (exports) {
       "webkitdirectory",
       "webkitdropzone",
       "webstore",
+      "weekday",
+      "weeks",
       "weight",
       "wgslLanguageFeatures",
       "whatToShow",
@@ -33679,6 +34046,8 @@ var terser = (function (exports) {
       "y2",
       "yChannelSelector",
       "yandex",
+      "year",
+      "years",
       "yield",
       "z",
       "z-index",
