@@ -35,7 +35,7 @@ A list containing the transpiled JavaScript code and any diagnostics.
 ts_code <- "const greet = (name: string): string => `Hello, ${name}!`;"
 typescript(ts_code, list(compilerOptions = list(target = "ES5")))
 #> $outputText
-#> [1] "var greet = function (name) { return \"Hello, \".concat(name, \"!\"); };\n"
+#> [1] "\"use strict\";\nvar greet = function (name) { return \"Hello, \".concat(name, \"!\"); };\n"
 #> 
 #> $diagnostics
 #> logical(0)
