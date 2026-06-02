@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "esprima": "^4.0.1",
-    "sass": "^1.99.0",
-    "terser": "^5.47.1",
+    "sass": "^1.100.0",
+    "terser": "^5.48.0",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "rollup": "^4.60.1"
+    "rollup": "^4.61.0"
   }
 }
