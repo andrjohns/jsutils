@@ -8,7 +8,7 @@ take a few seconds. Subsequent calls will be faster.
 ## Usage
 
 ``` r
-typescript(input, options = NULL)
+typescript(input, options = list())
 ```
 
 ## Arguments

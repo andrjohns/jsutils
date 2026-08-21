@@ -8,7 +8,7 @@ calls will be faster.
 ## Usage
 
 ``` r
-esprima_parse(input, options = NULL, type = "script")
+esprima_parse(input, options = list(), type = "script")
 
 esprima_tokenize(input, options = list())
 ```

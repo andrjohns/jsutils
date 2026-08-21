@@ -8,7 +8,7 @@ calls will be faster.
 ## Usage
 
 ``` r
-terser(input, options = NULL)
+terser(input, options = list())
 ```
 
 ## Arguments

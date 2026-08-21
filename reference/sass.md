@@ -9,7 +9,7 @@ seconds. Subsequent calls will be faster.
 ## Usage
 
 ``` r
-sass(input, options = NULL)
+sass(input, options = list())
 ```
 
 ## Arguments
