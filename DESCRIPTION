@@ -1,6 +1,6 @@
 Package: jsutils
 Title: 'JavaScript' Utilities for 'R'
-Version: 0.3.0
+Version: 0.4.0
 Authors@R:
     person(c("Andrew", "R."), "Johnson", , "andrew.johnson@arjohnsonau.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7000-8065"))
@@ -9,7 +9,7 @@ Description: A collection of popular/useful JavaScript utilities, including the
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
     QuickJSR (>= 1.8.1)
 URL: https://github.com/andrjohns/jsutils, https://andrjohns.github.io/jsutils/
+Config/roxygen2/version: 8.1.0

@@ -83,7 +83,7 @@ ts_code <- "let arrow_func = (msg: string): void => { console.log(msg); };"
 # Compile TypeScript code to JavaScript
 typescript(ts_code)
 #> $outputText
-#> [1] "var arrow_func = function (msg) { console.log(msg); };\n"
+#> [1] "\"use strict\";\nlet arrow_func = (msg) => { console.log(msg); };\n"
 #> 
 #> $diagnostics
 #> logical(0)
@@ -94,7 +94,7 @@ typescript(ts_code)
 # With options
 typescript(ts_code, options = list(compilerOptions = list(target = "ES2015")))
 #> $outputText
-#> [1] "let arrow_func = (msg) => { console.log(msg); };\n"
+#> [1] "\"use strict\";\nlet arrow_func = (msg) => { console.log(msg); };\n"
 #> 
 #> $diagnostics
 #> logical(0)

@@ -14,12 +14,12 @@
 #' terser(js_code, list(sourceMap = TRUE))
 #'
 #' @export
-terser <- function(input, options = NULL) {
+terser <- function(input, options = list()) {
   if (file.exists(input)) {
     input <- paste(readLines(input, warn = FALSE), collapse = "\n")
   }
   if (!isTRUE(ctx_terser$get("terser_loaded"))) {
-    ctx_terser$source(system.file("js", paste0("terser.", .TERSER_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
+    ctx_terser$source(system.file("js", paste0("terser.", .TERSER_VERSION, ".min.js"), package = "jsutils", mustWork = TRUE))
     ctx_terser$assign("terser_loaded", TRUE)
   }
   res <- ctx_terser$call("terser.minify_sync", input, options)

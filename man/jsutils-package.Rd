@@ -11,13 +11,18 @@ A collection of popular/useful JavaScript utilities, including the terser minifi
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/andrjohns/QuickJSR}
+  \item \url{https://github.com/andrjohns/jsutils}
   \item \url{https://andrjohns.github.io/jsutils/}
 }
 
 }
 \author{
 \strong{Maintainer}: Andrew R. Johnson \email{andrew.johnson@arjohnsonau.com} (\href{https://orcid.org/0000-0001-7000-8065}{ORCID})
+
+Authors:
+\itemize{
+  \item Andrew R. Johnson \email{andrew.johnson@arjohnsonau.com} (\href{https://orcid.org/0000-0001-7000-8065}{ORCID})
+}
 
 }
 \keyword{internal}

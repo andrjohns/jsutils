@@ -14,14 +14,14 @@
 #' sass(scss_code, list(style = "compressed"))
 #'
 #' @export
-sass <- function(input, options = NULL) {
+sass <- function(input, options  = list()) {
   if (file.exists(input)) {
     input <- paste(readLines(input, warn = FALSE), collapse = "\n")
   }
   if (!isTRUE(ctx_sass$get("sass_loaded"))) {
     # https://github.com/dart-lang/sdk/issues/27979
     ctx_sass$source(code=paste0("globalThis.location = { href: '", getwd(), "' };"))
-    ctx_sass$source(system.file("js", paste0("sass.", .SASS_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
+    ctx_sass$source(system.file("js", paste0("sass.", .SASS_VERSION, ".min.js"), package = "jsutils", mustWork = TRUE))
     ctx_sass$assign("sass_loaded", TRUE)
   }
   res <- ctx_sass$call("sass.compileString", input, options)

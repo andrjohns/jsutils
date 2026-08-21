@@ -1,1 +1,3 @@
-export { transpileModule } from "typescript";
+import { transpileModule } from "typescript";
+
+globalThis.ts = { transpileModule };

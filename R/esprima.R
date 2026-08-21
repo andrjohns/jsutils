@@ -19,7 +19,7 @@ NULL
 
 #' @rdname esprima
 #' @export
-esprima_parse <- function(input, options = NULL, type = "script") {
+esprima_parse <- function(input, options  = list(), type = "script") {
   if (file.exists(input)) {
     input <- paste(readLines(input, warn = FALSE), collapse = "\n")
   }
@@ -27,7 +27,7 @@ esprima_parse <- function(input, options = NULL, type = "script") {
     stop("type must be 'script' or 'module'", call. = FALSE)
   }
   if (!isTRUE(ctx_esprima$get("esprima_loaded"))) {
-    ctx_esprima$source(system.file("js", paste0("esprima.", .ESPRIMA_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
+    ctx_esprima$source(system.file("js", paste0("esprima.", .ESPRIMA_VERSION, ".min.js"), package = "jsutils", mustWork = TRUE))
     ctx_esprima$assign("esprima_loaded", TRUE)
   }
   fun <- ifelse(type == "script", "esprima.parseScript", "esprima.parseModule")
@@ -40,7 +40,7 @@ esprima_parse <- function(input, options = NULL, type = "script") {
 
 #' @rdname esprima
 #' @export
-esprima_tokenize <- function(input, options = list()) {
+esprima_tokenize <- function(input, options  = list()) {
   if (file.exists(input)) {
     input <- paste(readLines(input, warn = FALSE), collapse = "\n")
   }

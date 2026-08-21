@@ -1,1 +1,3 @@
-export { compileString } from "sass";
+import { compileString } from "sass";
+
+globalThis.sass = { compileString };

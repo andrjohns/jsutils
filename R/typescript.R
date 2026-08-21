@@ -14,12 +14,12 @@
 #' typescript(ts_code, list(compilerOptions = list(target = "ES5")))
 #'
 #' @export
-typescript <- function(input, options = NULL) {
+typescript <- function(input, options = list()) {
   if (file.exists(input)) {
     input <- paste(readLines(input, warn = FALSE), collapse = "\n")
   }
   if (!isTRUE(ctx_typescript$get("typescript_loaded"))) {
-    ctx_typescript$source(system.file("js", paste0("typescript.", .TYPESCRIPT_VERSION, ".js"), package = "jsutils", mustWork = TRUE))
+    ctx_typescript$source(system.file("js", paste0("typescript.", .TYPESCRIPT_VERSION, ".min.js"), package = "jsutils", mustWork = TRUE))
     ctx_typescript$assign("typescript_loaded", TRUE)
   }
   res <- ctx_typescript$call("ts.transpileModule", input, options)

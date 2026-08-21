@@ -1,13 +1,11 @@
 {
+  "scripts": {
+    "build": "bun run build.js"
+  },
   "dependencies": {
     "esprima": "^4.0.1",
     "sass": "^1.99.0",
     "terser": "^5.47.1",
     "typescript": "^6.0.3"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "rollup": "^4.60.1"
   }
 }
