@@ -6,7 +6,7 @@
 \alias{esprima_tokenize}
 \title{Parse or Tokenize JavaScript code using Esprima}
 \usage{
-esprima_parse(input, options = NULL, type = "script")
+esprima_parse(input, options = list(), type = "script")
 
 esprima_tokenize(input, options = list())
 }

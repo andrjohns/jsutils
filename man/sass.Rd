@@ -4,7 +4,7 @@
 \alias{sass}
 \title{Compile SASS/SCSS to CSS using the sass.js library}
 \usage{
-sass(input, options = NULL)
+sass(input, options = list())
 }
 \arguments{
 \item{input}{Either a path to a file or a character string containing the SASS/SCSS code to be compiled.}
