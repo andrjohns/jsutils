@@ -1,6 +1,15 @@
 # Changelog
 
+## jsutils 0.4.0
+
+- `sass` updated to [1.103.1
+  release](https://github.com/sass/dart-sass/releases/tag/1.103.1)
+- `terser` updated to [5.50.0
+  release](https://github.com/terser/terser/releases/tag/v5.50.0)
+
 ## jsutils 0.3.0
+
+CRAN release: 2026-05-17
 
 - `sass` updated to [1.99.0
   release](https://github.com/sass/dart-sass/releases/tag/1.99.0)

@@ -7,7 +7,7 @@ terser minifier, sass compiler, typescript transpiler, and more.
 
 Useful links:
 
-- <https://github.com/andrjohns/QuickJSR>
+- <https://github.com/andrjohns/jsutils>
 
 - <https://andrjohns.github.io/jsutils/>
 
@@ -15,3 +15,8 @@ Useful links:
 
 **Maintainer**: Andrew R. Johnson <andrew.johnson@arjohnsonau.com>
 ([ORCID](https://orcid.org/0000-0001-7000-8065))
+
+Authors:
+
+- Andrew R. Johnson <andrew.johnson@arjohnsonau.com>
+  ([ORCID](https://orcid.org/0000-0001-7000-8065))
